@@ -42,7 +42,7 @@ export const NewNoteInput: React.FC<NewNoteInputProps> = ({ addWeather }) => {
                 <TextField value={note} onChange={updateNote} type="text" placeholder="city" id="standard-basic" label="Search city weather" />
 
             </div>
-            <ButtonSearch onClick={onAddNoteClick}>Check Weather</ButtonSearch>
+            <ButtonSearch onClick={onAddNoteClick}>+ Add city</ButtonSearch>
 
         </>
 
@@ -51,8 +51,8 @@ export const NewNoteInput: React.FC<NewNoteInputProps> = ({ addWeather }) => {
 
 const theme:any = {
     blue: {
-      default: "#3f51b5",
-      hover: "#283593"
+      default: "#d88423",
+      hover: "#937628"
     },
     pink: {
       default: "#e91e63",
@@ -65,6 +65,7 @@ const ButtonSearch = styled.button`
   background-color: ${(props) => theme[props.theme].default};
   color: white;
   padding: 5px 15px;
+  border: none;
   border-radius: 5px;
   outline: 0;
   text-transform: uppercase;

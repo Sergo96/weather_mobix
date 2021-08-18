@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { NewNoteInput } from './Components/NewNoteInput';
 import { useRootStore } from './RootStateContext';
+import CloudIcon from '@material-ui/icons/Cloud';
 
 
 
@@ -27,14 +28,35 @@ const App: React.FC = observer(() => {
         {
           notesStore.weathers.map((note: any) => (
             <>
-            <li key={note.id}>{note.name}</li>
-            <p>Temperature °K : {note.main.temp}</p>
-            <p>Clouds - {note.weather[0].description}</p>
-            <p>Humidity : {note.main.humidity}</p>
-            <p>Pressure : {note.main.pressure}</p>
-            <p>Country - "{note.sys.country}"</p>
-            <p>Wind deg : {note.wind.deg}</p>
-            <p>Wind speed : {note.wind.speed}</p>
+              <li key={note.id}>{note.name}</li>
+              <div className="">
+                <p>Temperature °K : {note.main.temp}</p>
+              </div>
+              
+              <WeatherField className="">
+                <CloudIcon/>
+                <p>Clouds - {note.weather[0].description}</p>
+              </WeatherField>
+
+              <div className="">
+                <p>Humidity : {note.main.humidity}</p>
+              </div>
+
+              <div className="">
+                <p>Pressure : {note.main.pressure}</p>
+              </div>
+
+              <div className="">
+                <p>Country - "{note.sys.country}"</p>
+              </div>
+
+              <div className="">
+                <p>Wind deg : {note.wind.deg}</p>
+              </div>
+
+              <div className="">
+                <p>Wind speed : {note.wind.speed}</p>
+              </div>
             </>
           ))
         }
@@ -59,4 +81,11 @@ const MainPageContainer = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
+`;
+
+const WeatherField = styled.div`
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+
 `;
