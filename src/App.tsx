@@ -1,73 +1,66 @@
-import { observer } from 'mobx-react-lite';
+import {observer} from 'mobx-react-lite';
 import React from 'react';
 import styled from 'styled-components';
-import { NewNoteInput } from './Components/NewNoteInput';
-import { useRootStore } from './RootStateContext';
-import CloudIcon from '@material-ui/icons/Cloud';
-
+import {NewNoteInput} from './Components/NewNoteInput';
+import {useRootStore} from './RootStateContext';
+// import CloudIcon from '@material-ui/icons/Cloud';
 
 
 const App: React.FC = observer(() => {
 
-  const { notesStore } = useRootStore();
-  // const [weatherData, setWeatherData] = React.useState([]);
-  const weatherData = notesStore.weathers
-  console.log(weatherData);
-
-  notesStore.weathers.map((note: any) => console.log(note));
-  
+    const {notesStore} = useRootStore();
+    const weatherData = notesStore.weathers
+    console.log(weatherData);
 
 
+    return (
 
-  return (
-    <>
-    <MainPageContainer>
-    <NewNoteInput addWeather={notesStore.searchForWeather} />
-      <hr />
-      <ul>
-        {
-          notesStore.weathers.map((note: any) => (
-            <>
-              <li key={note.id}>{note.name}</li>
-              <div className="">
-                <p>Temperature °K : {note.main.temp}</p>
-              </div>
-              
-              <WeatherField className="">
-                <CloudIcon/>
-                <p>Clouds - {note.weather[0].description}</p>
-              </WeatherField>
+        <>
+            <MainPageContainer>
+                <NewNoteInput addWeather={notesStore.searchForWeather}/>
+                <hr/>
+                <ul>
+                    {
+                        notesStore.weathers.map((note: any) => (
+                            <WeatherFieldContainer>
+                                <li key={note.id}>{note.name}</li>
+                                <WeatherField className="">
+                                    <p>Temperature °K : {note.main.temp}</p>
+                                </WeatherField>
 
-              <div className="">
-                <p>Humidity : {note.main.humidity}</p>
-              </div>
+                                <WeatherField>
+                                    <p>Clouds - {note.weather[0].description}</p>
+                                </WeatherField>
 
-              <div className="">
-                <p>Pressure : {note.main.pressure}</p>
-              </div>
+                                <WeatherField className="">
+                                    <p>Humidity : {note.main.humidity}</p>
+                                </WeatherField>
 
-              <div className="">
-                <p>Country - "{note.sys.country}"</p>
-              </div>
+                                <WeatherField className="">
+                                    <p>Pressure : {note.main.pressure}</p>
+                                </WeatherField>
 
-              <div className="">
-                <p>Wind deg : {note.wind.deg}</p>
-              </div>
+                                <WeatherField className="">
+                                    <p>Country : "{note.sys.country}"</p>
+                                </WeatherField>
 
-              <div className="">
-                <p>Wind speed : {note.wind.speed}</p>
-              </div>
-            </>
-          ))
-        }
+                                <WeatherField className="">
+                                    <p>Wind deg : {note.wind.deg}</p>
+                                </WeatherField>
 
-      </ul>
+                                <WeatherField className="">
+                                    <p>Wind speed : {note.wind.speed}</p>
+                                </WeatherField>
+                            </WeatherFieldContainer>
+                        ))
+                    }
 
-    </MainPageContainer>
-     
+                </ul>
+            </MainPageContainer>
+        </>
 
-    </>
-  )
+
+    )
 
 
 })
@@ -76,16 +69,21 @@ export default App;
 
 
 const MainPageContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+const WeatherFieldContainer = styled.div`
+  padding-top: 20px;
 `;
 
 const WeatherField = styled.div`
   display: flex;
   /* justify-content: space-between; */
   align-items: center;
+  margin: 5px;
 
 `;

@@ -1,5 +1,5 @@
 import React from "react";
-import { NotesStore } from "./store/NotesStore";
+import {NotesStore} from "./store/NotesStore";
 
 
 type RootStateContextValue = {
@@ -10,8 +10,8 @@ const RootStateContext = React.createContext<RootStateContextValue>({} as RootSt
 
 const notesStore = new NotesStore();
 
-export const RootStateProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
-    return <RootStateContext.Provider value={{ notesStore }}>{children}</RootStateContext.Provider>
+export const RootStateProvider: React.FC<React.PropsWithChildren<{}>> = ({children}) => {
+    return <RootStateContext.Provider value={{notesStore}}>{children}</RootStateContext.Provider>
 }
 
 export const useRootStore = () => React.useContext(RootStateContext)
