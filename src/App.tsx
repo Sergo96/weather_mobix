@@ -3,18 +3,13 @@ import React from 'react';
 import styled from 'styled-components';
 import {NewNoteInput} from './Components/NewNoteInput';
 import {useRootStore} from './RootStateContext';
-// import CloudIcon from '@material-ui/icons/Cloud';
 
 
 const App: React.FC = observer(() => {
-
     const {notesStore} = useRootStore();
-    const weatherData = notesStore.weathers
-    console.log(weatherData);
 
 
     return (
-
         <>
             <MainPageContainer>
                 <NewNoteInput addWeather={notesStore.searchForWeather}/>
@@ -54,15 +49,10 @@ const App: React.FC = observer(() => {
                             </WeatherFieldContainer>
                         ))
                     }
-
                 </ul>
             </MainPageContainer>
         </>
-
-
     )
-
-
 })
 
 export default App;
