@@ -7,4 +7,8 @@ export const fetchWeatherData = (query: string): Promise<string[]> => {
     );
 };
 
-
+export const fetchForcastWeatherData = (query: string): Promise<string[]> => {
+    return fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${query}&APPID=${API_KEY}`).then(
+        (res) => res.json()
+    );
+};

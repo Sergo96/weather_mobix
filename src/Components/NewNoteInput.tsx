@@ -1,14 +1,12 @@
 import React from 'react';
 import {NotesStore} from '../store/NotesStore';
 import {alpha, makeStyles, Theme} from '@material-ui/core/styles';
-// import TextField from '@material-ui/core/TextField';
 import styled from "styled-components";
 import MuiAlert, {AlertProps} from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
 import {AppBar} from "@material-ui/core";
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-// import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
@@ -16,7 +14,8 @@ import InputBase from '@material-ui/core/InputBase';
 
 
 type NewNoteInputProps = {
-    addWeather: NotesStore["searchForWeather"]
+    addWeather: NotesStore["searchForWeather"],
+    // removeWeather: NotesStore["removeCity"]
 }
 
 const Alert = (props: AlertProps) => {
@@ -128,14 +127,6 @@ export const NewNoteInput: React.FC<NewNoteInputProps> = ({addWeather}) => {
                             <div className={classes.searchIcon}>
                                 <SearchIcon/>
                             </div>
-                            {/*<InputBase*/}
-                            {/*    placeholder="Search…"*/}
-                            {/*    classes={{*/}
-                            {/*        root: classes.inputRoot,*/}
-                            {/*        input: classes.inputInput,*/}
-                            {/*    }}*/}
-                            {/*    inputProps={{ 'aria-label': 'search' }}*/}
-                            {/*/>*/}
                             <InputBase
                                 value={note}
                                 onChange={updateNote}

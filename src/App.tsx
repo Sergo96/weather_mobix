@@ -4,10 +4,22 @@ import styled from 'styled-components';
 import {NewNoteInput} from './Components/NewNoteInput';
 import {useRootStore} from './RootStateContext';
 import CloudIcon from '@material-ui/icons/Cloud';
+// import {NotesStore} from './store/NotesStore';
+// import {inject} from "mobx-react";
 
+
+// type RemoveWeatherProps = {
+//     removeWeather: NotesStore["removeCity"]
+// }
 
 const App: React.FC = observer(() => {
     const {notesStore} = useRootStore();
+    console.log(notesStore.weathersForcastArr);
+
+    const deleteCityHandler = (event: string) => {
+        console.log(event)
+        // removeWeather(event)
+    }
 
     return (
         <>
@@ -49,6 +61,8 @@ const App: React.FC = observer(() => {
                                 <WeatherField className="">
                                     <p>Wind speed : {note.wind.speed}</p>
                                 </WeatherField>
+
+                                <button onClick={() => deleteCityHandler(note.name)}>Delete</button>
                             </WeatherFieldContainer>
                         ))
                     }
@@ -79,7 +93,7 @@ const WeatherFieldContainer = styled.div`
   border-radius: 15px;
 
   &:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   }
 `;
 
