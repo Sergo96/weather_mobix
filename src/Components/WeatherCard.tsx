@@ -2,6 +2,7 @@ import React from 'react';
 import {NotesStore} from "../store/NotesStore";
 import CloudIcon from '@material-ui/icons/Cloud';
 import styled from 'styled-components';
+// import {observer} from "mobx-react-lite";
 
 
 type NewNoteInputProps = {
@@ -17,6 +18,7 @@ type NewNoteInputProps = {
     speed: string | number
 }
 
+
 export const WeatherCard: React.FC<NewNoteInputProps> = ({
                                                              removeWeather,
                                                              id,
@@ -30,9 +32,9 @@ export const WeatherCard: React.FC<NewNoteInputProps> = ({
                                                              speed
 
                                                          }) => {
-
+    console.log(removeWeather)
     const deleteCityHandler = (event: string) => {
-        console.log(event)
+        console.log(removeWeather(event))
         removeWeather(event)
     }
     return (
@@ -87,6 +89,7 @@ const WeatherFieldContainer = styled.div`
   transition: 0.3s;
   width: 250px;
   border-radius: 15px;
+  cursor: pointer;
 
   &:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);

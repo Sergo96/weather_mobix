@@ -28,10 +28,10 @@ export class NotesStore {
     };
 
     @action.bound
-    removeCity =  (city: string) => {
-        const filteredData =  this.weathers.filter((cityItem: string) => cityItem !== city);
-        this.weathers = filteredData
+    removeCity = (city: string) => {
+        runInAction(() => {
+            const filteredData = this.weathers.find((cityItem: any) => city === cityItem.name);
+            this.weathers.remove(filteredData)
+        })
     }
-
-
 }

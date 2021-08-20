@@ -8,7 +8,7 @@ import {WeatherCard} from "./Components/WeatherCard";
 
 const App: React.FC = observer(() => {
     const {notesStore} = useRootStore();
-    console.log(notesStore.weathersForcastArr);
+    console.log(notesStore);
 
 
     return (
