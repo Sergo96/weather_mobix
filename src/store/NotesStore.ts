@@ -19,13 +19,21 @@ export class NotesStore {
     searchForWeather = async (city: string) => {
         this.fetchingData = true;
         const weather = await fetchWeatherData(city);
-        const weatherForcast = await fetchForcastWeatherData(city);
         runInAction(() => {
             this.weathers.push(weather);
-            this.weathersForcastArr.push(weatherForcast);
             this.fetchingData = false;
         });
     };
+
+    @action.bound
+    forcastWeather = async (city: string) => {
+        this.fetchingData = true;
+        const weatherForcast = await fetchForcastWeatherData(city);
+        runInAction(() => {
+            this.weathersForcastArr.push(weatherForcast);
+            this.fetchingData = false;
+        });
+    }
 
     @action.bound
     removeCity = (city: string) => {

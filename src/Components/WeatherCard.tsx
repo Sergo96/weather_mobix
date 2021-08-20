@@ -1,12 +1,21 @@
 import React from 'react';
 import {NotesStore} from "../store/NotesStore";
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import { Link, useHistory } from 'react-router-dom';
+
+
 import CloudIcon from '@material-ui/icons/Cloud';
 import styled from 'styled-components';
-// import {observer} from "mobx-react-lite";
+import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
+
+
 
 
 type NewNoteInputProps = {
     removeWeather: NotesStore["removeCity"],
+    forcastWeather: NotesStore["forcastWeather"],
+
     id: number | string,
     name: string,
     temp: number | string,
@@ -18,9 +27,16 @@ type NewNoteInputProps = {
     speed: string | number
 }
 
+const useStyles = makeStyles((theme: Theme) => ({
+    button: {
+        margin: theme.spacing(1),
+    },
+}));
+
 
 export const WeatherCard: React.FC<NewNoteInputProps> = ({
                                                              removeWeather,
+                                                             forcastWeather,
                                                              id,
                                                              name,
                                                              temp,
@@ -32,9 +48,15 @@ export const WeatherCard: React.FC<NewNoteInputProps> = ({
                                                              speed
 
                                                          }) => {
-    console.log(removeWeather)
+    const classes = useStyles();
+    const history = useHistory();
+
+    const forcastCityWeather = (cityName: string) => {
+        forcastWeather(cityName)
+        history.push(`/weatherCity/${cityName}`);
+    };
+
     const deleteCityHandler = (event: string) => {
-        console.log(removeWeather(event))
         removeWeather(event)
     }
     return (
@@ -72,7 +94,21 @@ export const WeatherCard: React.FC<NewNoteInputProps> = ({
                     <p>Wind speed : {speed}</p>
                 </WeatherField>
 
-                <button onClick={() => deleteCityHandler(name)}>Delete</button>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    className={classes.button}
+                    startIcon={<DeleteIcon />}
+                    onClick={() => deleteCityHandler(name)}
+                >
+                    Delete
+                </Button>
+                <Button
+                    color="primary"
+                    onClick={() => forcastCityWeather(name)}
+                >
+                    View Forcast
+                </Button>
             </WeatherFieldContainer>
 
         </>
