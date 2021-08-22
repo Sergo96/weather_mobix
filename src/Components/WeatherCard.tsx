@@ -1,7 +1,7 @@
 import React from 'react';
-import {NotesStore} from "../store/NotesStore";
-import { makeStyles, Theme } from '@material-ui/core/styles';
-import { Link, useHistory } from 'react-router-dom';
+import {ForcastStore, NotesStore} from "../store/NotesStore";
+import {makeStyles, Theme} from '@material-ui/core/styles';
+import {useHistory} from 'react-router-dom';
 
 
 import CloudIcon from '@material-ui/icons/Cloud';
@@ -10,11 +10,9 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 
-
-
 type NewNoteInputProps = {
     removeWeather: NotesStore["removeCity"],
-    forcastWeather: NotesStore["forcastWeather"],
+    forcastWeather: ForcastStore["forcastWeather"],
 
     id: number | string,
     name: string,
@@ -53,7 +51,7 @@ export const WeatherCard: React.FC<NewNoteInputProps> = ({
 
     const forcastCityWeather = (cityName: string) => {
         forcastWeather(cityName)
-        history.push(`/weatherCity/${cityName}`);
+        // history.push(`/weatherCity/${cityName}`);
     };
 
     const deleteCityHandler = (event: string) => {
@@ -98,7 +96,7 @@ export const WeatherCard: React.FC<NewNoteInputProps> = ({
                     variant="contained"
                     color="secondary"
                     className={classes.button}
-                    startIcon={<DeleteIcon />}
+                    startIcon={<DeleteIcon/>}
                     onClick={() => deleteCityHandler(name)}
                 >
                     Delete

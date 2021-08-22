@@ -1,16 +1,50 @@
 import {observable, action, runInAction, makeObservable} from 'mobx';
 import {fetchWeatherData, fetchForcastWeatherData} from '../utils/weatherApi';
+import routing from './routing'
+// import { configure } from "mobx"
+
+// import RouterStore from './routing'
+
+// configure({
+//     useProxies: "never",
+//     enforceActions: "always",
+//     computedRequiresReaction: true,
+//     reactionRequiresObservable: true,
+//     observableRequiresReaction: true,
+//     disableErrorBoundaries: true
+// })
+
+
+export class RootStore {
+    @observable notesStore: any
+    @observable forcastStore: any
+
+    // @observable routingStore: any
+
+
+    constructor() {
+        this.notesStore = new NotesStore(this)
+        this.forcastStore = new ForcastStore(this);
+        // this.routingStore = new RouterStore(this);
+    }
+
+
+}
+
 
 export class NotesStore {
     // @observable weather: string = '';
     // @observable weathers: string[] = [];
+    @observable rootStore: any
     @observable weathers: any;
-    @observable weathersForcastArr: any;
     @observable fetchingData: boolean;
 
-    constructor() {
+
+    constructor(rootStore: any) {
+        this.rootStore = rootStore;
+
+
         this.weathers = [];
-        this.weathersForcastArr = [];
         this.fetchingData = false;
         makeObservable(this);
     }
@@ -25,15 +59,6 @@ export class NotesStore {
         });
     };
 
-    @action.bound
-    forcastWeather = async (city: string) => {
-        this.fetchingData = true;
-        const weatherForcast = await fetchForcastWeatherData(city);
-        runInAction(() => {
-            this.weathersForcastArr.push(weatherForcast);
-            this.fetchingData = false;
-        });
-    }
 
     @action.bound
     removeCity = (city: string) => {
@@ -43,3 +68,30 @@ export class NotesStore {
         })
     }
 }
+
+
+export class ForcastStore {
+    @observable rootStore: any
+    @observable.ref weathersForcastArr: any;
+    @observable fetchingData: boolean;
+
+    constructor(rootStore: any) {
+        this.rootStore = rootStore;
+        this.weathersForcastArr = [];
+        this.fetchingData = false;
+
+        makeObservable(this);
+    }
+
+    @action.bound
+    forcastWeather = async (city: string) => {
+        // this.fetchingData = true;
+        routing.push(`/weatherCity/${city}`)
+        const weatherForcast = await fetchForcastWeatherData(city);
+        runInAction(() => {
+            this.weathersForcastArr.push(weatherForcast);
+            // this.fetchingData = false;
+        });
+    }
+}
+

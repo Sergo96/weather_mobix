@@ -9,8 +9,8 @@ import {WeatherCard} from "./Components/WeatherCard";
 import {WeatherCityForcast} from "./Components/WeatherCityForcast";
 
 const App: React.FC = observer(() => {
-    const {notesStore} = useRootStore();
-    console.log(notesStore);
+    const {rootStore} = useRootStore();
+    console.log(rootStore);
 
 
     return (
@@ -18,16 +18,16 @@ const App: React.FC = observer(() => {
             <Switch>
 
                 <Route exact path={'/'}>
-                    <NewNoteInput addWeather={notesStore.searchForWeather}/>
+                    <NewNoteInput addWeather={rootStore.notesStore.searchForWeather}/>
 
                     <MainPageContainer>
                         <hr/>
                         <ul>
                             {
-                                notesStore.weathers.map((note: any) => (
+                                rootStore.notesStore.weathers.map((note: any) => (
                                     <WeatherCard
-                                        removeWeather={notesStore.removeCity}
-                                        forcastWeather={notesStore.forcastWeather}
+                                        removeWeather={rootStore.notesStore.removeCity}
+                                        forcastWeather={rootStore.forcastStore.forcastWeather}
                                         id={note.id}
                                         name={note.name}
                                         temp={note.main.temp}
@@ -46,7 +46,7 @@ const App: React.FC = observer(() => {
 
 
                 <Route exact path="/weatherCity/:name">
-                    <WeatherCityForcast />
+                    <WeatherCityForcast forcastWeather={rootStore.notesStore.forcastWeather} />
                 </Route>
 
             </Switch>
