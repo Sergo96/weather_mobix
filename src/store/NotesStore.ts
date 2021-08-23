@@ -1,31 +1,16 @@
-import {observable, action, runInAction, makeObservable} from 'mobx';
-import {fetchWeatherData, fetchForcastWeatherData} from '../utils/weatherApi';
+import {observable, action, runInAction, makeObservable, autorun} from 'mobx';
+import {fetchWeatherData, fetchForcastWeatherData, fetchCurrentCityWeatherData} from '../utils/weatherApi';
 import routing from './routing';
-// import { configure } from "mobx"
-
-// import RouterStore from './routing'
-
-// configure({
-//     useProxies: "never",
-//     enforceActions: "always",
-//     computedRequiresReaction: true,
-//     reactionRequiresObservable: true,
-//     observableRequiresReaction: true,
-//     disableErrorBoundaries: true
-// })
 
 
 export class RootStore {
     @observable notesStore: any
     @observable forcastStore: any
 
-    // @observable routingStore: any
-
 
     constructor() {
         this.notesStore = new NotesStore(this)
         this.forcastStore = new ForcastStore(this);
-        // this.routingStore = new RouterStore(this);
     }
 
 
@@ -33,21 +18,27 @@ export class RootStore {
 
 
 export class NotesStore {
-    // @observable weather: string = '';
-    // @observable weathers: string[] = [];
     @observable rootStore: any
     @observable weathers: any;
+    @observable.ref currentCity: any;
     @observable fetchingData: boolean;
+    @observable celsius: boolean;
+    @observable geo: any;
+    @observable isLoading: boolean;
 
 
     constructor(rootStore: any) {
         this.rootStore = rootStore;
 
-
         this.weathers = [];
+        this.currentCity = [];
         this.fetchingData = false;
+        this.geo = {};
+        this.celsius = true;
+        this.isLoading = false
         makeObservable(this);
     }
+
 
     @action.bound
     searchForWeather = async (city: string) => {
@@ -59,10 +50,44 @@ export class NotesStore {
         });
     };
 
+    @action.bound
+    changeCels() {
+        this.celsius = !this.celsius
+    }
+
+    @action.bound
+    getCurrentCityWeatherData = async () => {
+        this.isLoading = true;
+        try {
+            await navigator.geolocation.getCurrentPosition((position) => {
+                if (position.coords.latitude){
+                    this.geo = {
+                        lat: position.coords.latitude.toString(),
+                        log: position.coords.longitude.toString()
+                    }
+
+                }
+
+                    this.isLoading = false;
+                }
+            );
+        } catch (e) {
+            console.log(e)
+        }
+        console.log(this.geo)
+
+
+        autorun(async () => {
+            const watchID = await fetchCurrentCityWeatherData(this.geo.lat, this.geo.log);
+            console.log(watchID)
+            this.currentCity = watchID
+        })
+    }
+
 
     @action.bound
     removeCity = (city: string) => {
-        runInAction(() => {
+        autorun(() => {
             const filteredData = this.weathers.find((cityItem: any) => city === cityItem.name);
             this.weathers.remove(filteredData)
         })
@@ -79,19 +104,22 @@ export class ForcastStore {
         this.rootStore = rootStore;
         this.weathersForcastArr = [];
         this.fetchingData = false;
-
         makeObservable(this);
     }
 
     @action.bound
     forcastWeather = async (city: string) => {
-        // this.fetchingData = true;
+        this.fetchingData = false;
         routing.push(`/weatherCity/${city}`)
         const weatherForcast = await fetchForcastWeatherData(city);
+
+
         runInAction(() => {
-            this.weathersForcastArr = weatherForcast ;
-            // this.fetchingData = false;
+            this.weathersForcastArr = weatherForcast;
+            this.fetchingData = true;
         });
+
+
     }
 }
 

@@ -1,18 +1,17 @@
 import React from 'react';
-import {ForcastStore, NotesStore} from "../store/NotesStore";
+// import {ForcastStore, NotesStore} from "../store/NotesStore";
 import {makeStyles, Theme} from '@material-ui/core/styles';
 // import {useHistory} from 'react-router-dom';
 
 
 import CloudIcon from '@material-ui/icons/Cloud';
 import styled from 'styled-components';
-import Button from '@material-ui/core/Button';
-import DeleteIcon from '@material-ui/icons/Delete';
+// import Button from '@material-ui/core/Button';
+// import DeleteIcon from '@material-ui/icons/Delete';
 
-
-type NewNoteInputProps = {
-    removeWeather: NotesStore["removeCity"],
-    forcastWeather: ForcastStore["forcastWeather"],
+type CurrentCityProps = {
+    // removeWeather: NotesStore["removeCity"],
+    // forcastWeather: ForcastStore["forcastWeather"],
 
     id: number | string,
     name: string,
@@ -33,9 +32,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 
-export const WeatherCard: React.FC<NewNoteInputProps> = ({
-                                                             removeWeather,
-                                                             forcastWeather,
+
+export const CurrentCityCard: React.FC<CurrentCityProps> = ({
+
                                                              celsius,
                                                              id,
                                                              name,
@@ -53,66 +52,58 @@ export const WeatherCard: React.FC<NewNoteInputProps> = ({
     // const [celsius, setCelsius] = React.useState(true);
 
     const forcastCityWeather = (cityName: string) => {
-        forcastWeather(cityName)
+        // forcastWeather(cityName)
         // history.push(`/weatherCity/${cityName}`);
     };
 
     const deleteCityHandler = (event: string) => {
-        removeWeather(event)
+        // removeWeather(event)
     }
     return (
         <>
-            <WeatherFieldContainer>
-                <CityName key={id}>
+            <CurrentWeatherFieldContainer>
+                <CurrentCityName key={id}>
                     <CloudIcon/>
                     {name}
-                </CityName>
-                <WeatherField className="">
+                </CurrentCityName>
+                <CurrentWeatherField className="">
                     {/*<p>Temperature °K : {temp}</p>*/}
                     <p>Temperature °K
                         : {celsius ? Math.ceil(temp - 273) + "°C" : Math.ceil(((temp - 273.15) * 9 / 5 + 32)) + "°F"}</p>
-                </WeatherField>
+                </CurrentWeatherField>
 
-                <WeatherField>
+                <CurrentWeatherField>
                     <p>Clouds : {description}</p>
-                </WeatherField>
+                </CurrentWeatherField>
 
-                <WeatherField className="">
+                <CurrentWeatherField className="">
                     <p>Humidity : {humidity}</p>
-                </WeatherField>
+                </CurrentWeatherField>
 
-                <WeatherField className="">
+                <CurrentWeatherField className="">
                     <p>Pressure : {pressure}</p>
-                </WeatherField>
+                </CurrentWeatherField>
 
-                <WeatherField className="">
+                <CurrentWeatherField className="">
                     <p>Country : "{country}"</p>
-                </WeatherField>
+                </CurrentWeatherField>
 
-                <WeatherField className="">
+                <CurrentWeatherField className="">
                     <p>Wind deg : {deg}</p>
-                </WeatherField>
+                </CurrentWeatherField>
 
-                <WeatherField className="">
+                <CurrentWeatherField className="">
                     <p>Wind speed : {speed}</p>
-                </WeatherField>
+                </CurrentWeatherField>
 
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    className={classes.button}
-                    startIcon={<DeleteIcon/>}
-                    onClick={() => deleteCityHandler(name)}
-                >
-                    Delete
-                </Button>
-                <Button
-                    color="primary"
-                    onClick={() => forcastCityWeather(name)}
-                >
-                    View Forcast
-                </Button>
-            </WeatherFieldContainer>
+
+                {/*<Button*/}
+                {/*    color="primary"*/}
+                {/*    onClick={() => forcastCityWeather(name)}*/}
+                {/*>*/}
+                {/*    View Forcast*/}
+                {/*</Button>*/}
+            </CurrentWeatherFieldContainer>
 
         </>
     )
@@ -121,7 +112,7 @@ export const WeatherCard: React.FC<NewNoteInputProps> = ({
 }
 
 
-const WeatherFieldContainer = styled.div`
+const CurrentWeatherFieldContainer = styled.div`
   margin-top: 20px;
   padding: 35px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -135,14 +126,14 @@ const WeatherFieldContainer = styled.div`
   }
 `;
 
-const WeatherField = styled.div`
+const CurrentWeatherField = styled.div`
   display: flex;
   /* justify-content: space-between; */
   align-items: center;
   margin: 5px;
 `;
 
-const CityName = styled.h2`
+const CurrentCityName = styled.h2`
   display: flex;
   justify-content: space-between;
   color: crimson;

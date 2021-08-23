@@ -7,27 +7,54 @@ import {NewNoteInput} from './Components/NewNoteInput';
 import {useRootStore} from './RootStateContext';
 import {WeatherCard} from "./Components/WeatherCard";
 import {WeatherCityForcast} from "./Components/WeatherCityForcast";
+import {CurrentCityCard} from "./Components/CurrentCityCard";
+// import {NotesStore} from "./store/NotesStore";
 
 const App: React.FC = observer(() => {
     const {rootStore} = useRootStore();
     console.log(rootStore);
 
+    const callFunc = async () => {
+        await rootStore.notesStore.getCurrentCityWeatherData()
+    }
+
+    callFunc()
 
     return (
         <>
             <Switch>
-
                 <Route exact path={'/'}>
-                    <NewNoteInput addWeather={rootStore.notesStore.searchForWeather}/>
+                    <NewNoteInput
+                        changeCelcius={rootStore.notesStore.changeCels}
+                        addWeather={rootStore.notesStore.searchForWeather}
+                    />
+                    {/*{callFunc()}*/}
 
                     <MainPageContainer>
                         <hr/>
+                        <ul>
+                            {/*{rootStore.notesStore}*/}
+                            <CurrentCityCard
+                                id={rootStore.notesStore.currentCity.id}
+                                name={rootStore.notesStore.currentCity.main.name}
+                                temp={rootStore.notesStore.currentCity.main.temp}
+                                description={rootStore.notesStore.currentCity.weather.description}
+                                humidity={rootStore.notesStore.currentCity.main.humidity}
+                                pressure={rootStore.notesStore.currentCity.main.pressure}
+                                country={rootStore.notesStore.currentCity.sys.country}
+                                deg={rootStore.notesStore.currentCity.wind.deg}
+                                speed={rootStore.notesStore.currentCity.wind.speed}
+                                celsius={rootStore.notesStore.celsius}
+
+                            />
+                        </ul>
                         <ul>
                             {
                                 rootStore.notesStore.weathers.map((note: any) => (
                                     <WeatherCard
                                         removeWeather={rootStore.notesStore.removeCity}
                                         forcastWeather={rootStore.forcastStore.forcastWeather}
+                                        celsius={rootStore.notesStore.celsius}
                                         id={note.id}
                                         name={note.name}
                                         temp={note.main.temp}
@@ -46,7 +73,7 @@ const App: React.FC = observer(() => {
 
 
                 <Route exact path="/weatherCity/:name">
-                    <WeatherCityForcast forcastWeather={rootStore.notesStore.forcastWeather} />
+                    <WeatherCityForcast forcastWeather={rootStore.notesStore.forcastWeather}/>
                 </Route>
 
             </Switch>

@@ -4,7 +4,7 @@ import {alpha, makeStyles, Theme} from '@material-ui/core/styles';
 import styled from "styled-components";
 import MuiAlert, {AlertProps} from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
-import {AppBar} from "@material-ui/core";
+import {AppBar, Button} from "@material-ui/core";
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
@@ -15,7 +15,7 @@ import InputBase from '@material-ui/core/InputBase';
 
 type NewNoteInputProps = {
     addWeather: NotesStore["searchForWeather"],
-    // removeWeather: NotesStore["removeCity"]
+    changeCelcius: NotesStore["changeCels"],
 }
 
 const Alert = (props: AlertProps) => {
@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 
-export const NewNoteInput: React.FC<NewNoteInputProps> = ({addWeather}) => {
+export const NewNoteInput: React.FC<NewNoteInputProps> = ({addWeather, changeCelcius}) => {
 
     const [note, setNote] = React.useState('');
     const classes = useStyles();
@@ -142,6 +142,10 @@ export const NewNoteInput: React.FC<NewNoteInputProps> = ({addWeather}) => {
                             />
                         </div>
                         <ButtonSearch onClick={onAddNoteClick}>+ Add city</ButtonSearch>
+
+
+
+                        <Button onClick={() => changeCelcius()} variant="contained" color="secondary">Change C | F</Button>
 
                     </Toolbar>
                 </AppBar>
