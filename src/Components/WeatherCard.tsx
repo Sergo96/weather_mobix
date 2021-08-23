@@ -1,7 +1,7 @@
 import React from 'react';
 import {ForcastStore, NotesStore} from "../store/NotesStore";
 import {makeStyles, Theme} from '@material-ui/core/styles';
-import {useHistory} from 'react-router-dom';
+// import {useHistory} from 'react-router-dom';
 
 
 import CloudIcon from '@material-ui/icons/Cloud';
@@ -47,7 +47,7 @@ export const WeatherCard: React.FC<NewNoteInputProps> = ({
 
                                                          }) => {
     const classes = useStyles();
-    const history = useHistory();
+    // const history = useHistory();
 
     const forcastCityWeather = (cityName: string) => {
         forcastWeather(cityName)

@@ -1,6 +1,6 @@
 import {observable, action, runInAction, makeObservable} from 'mobx';
 import {fetchWeatherData, fetchForcastWeatherData} from '../utils/weatherApi';
-import routing from './routing'
+import routing from './routing';
 // import { configure } from "mobx"
 
 // import RouterStore from './routing'
@@ -72,7 +72,7 @@ export class NotesStore {
 
 export class ForcastStore {
     @observable rootStore: any
-    @observable.ref weathersForcastArr: any;
+    @observable.ref weathersForcastArr: string[] | number[];
     @observable fetchingData: boolean;
 
     constructor(rootStore: any) {
@@ -89,7 +89,7 @@ export class ForcastStore {
         routing.push(`/weatherCity/${city}`)
         const weatherForcast = await fetchForcastWeatherData(city);
         runInAction(() => {
-            this.weathersForcastArr.push(weatherForcast);
+            this.weathersForcastArr = weatherForcast ;
             // this.fetchingData = false;
         });
     }
