@@ -20,7 +20,7 @@ export class RootStore {
 
 export class NotesStore {
     @observable rootStore: any
-    @observable weathers: any;
+    @observable weathers: string[] | number[] | any;
     @observable.ref currentCity: any;
     @observable fetchingData: boolean;
     @observable celsius: boolean;

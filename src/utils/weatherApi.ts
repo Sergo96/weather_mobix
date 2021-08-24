@@ -23,13 +23,13 @@ export const fetchForcastWeatherData = async (query: string): Promise<string[]> 
 };
 
 
-export const fetchCurrentCityWeatherData = async (lat: string , lon: string ): Promise<string[]> => {
-    return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`).then(
-        (res) => res.json()
-    ).then(data =>  data);
-
-
-}
+// export const fetchCurrentCityWeatherData = async (lat: string , lon: string ): Promise<string[]> => {
+//     return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`).then(
+//         (res) => res.json()
+//     ).then(data =>  data);
+//
+//
+// }
 
 
 

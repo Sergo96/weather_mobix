@@ -8,6 +8,7 @@ import {useRootStore} from './RootStateContext';
 import {WeatherCard} from "./Components/WeatherCard";
 import {WeatherCityForcast} from "./Components/WeatherCityForcast";
 import {CurrentCityCard} from "./Components/CurrentCityCard";
+import {Layout} from "./hoc/Layout";
 // import {NotesStore} from "./store/NotesStore";
 
 const App: React.FC = observer(() => {
@@ -28,64 +29,69 @@ const App: React.FC = observer(() => {
     return (
         <>
             <Switch>
-                <Route exact path={'/'}>
-                    <NewNoteInput
-                        changeCelcius={rootStore.notesStore.changeCels}
-                        addWeather={rootStore.notesStore.searchForWeather}
-                    />
-                    {/*{callFunc()}*/}
+                <Layout>
 
-                    <MainPageContainer>
-                        <hr/>
-                        <ul>
-                            {/*{rootStore.notesStore}*/}
-                            <CurrentCityCard
-                                id={rootStore.notesStore.currentCity.id}
-                                name={rootStore.notesStore.currentCity.name}
-                                // name={"Armenia"}
-                                temp={rootStore.notesStore.currentCity?.main?.temp || 0}
-                                // description={rootStore.notesStore.currentCity?.weather.description}
-                                // humidity={rootStore.notesStore.currentCity?.main.humidity}
-                                // pressure={rootStore.notesStore.currentCity?.main.pressure}
-                                // country={rootStore.notesStore.currentCity?.sys.country}
-                                // deg={rootStore.notesStore.currentCity?.wind.deg}
-                                // speed={rootStore.notesStore.currentCity?.wind.speed}
-                                celsius={rootStore.notesStore.celsius}
+                    <Route exact path={'/'}>
+                        <MainPageContainer>
+                            <hr/>
+                            <ul>
+                                {/*{rootStore.notesStore}*/}
+                                <CurrentCityCard
+                                    id={rootStore.notesStore.currentCity.id}
+                                    name={rootStore.notesStore.currentCity.name}
+                                    // name={"Armenia"}
+                                    temp={rootStore.notesStore.currentCity?.main?.temp || 0}
+                                    // description={rootStore.notesStore.currentCity?.weather.description}
+                                    // humidity={rootStore.notesStore.currentCity?.main.humidity}
+                                    // pressure={rootStore.notesStore.currentCity?.main.pressure}
+                                    // country={rootStore.notesStore.currentCity?.sys.country}
+                                    // deg={rootStore.notesStore.currentCity?.wind.deg}
+                                    // speed={rootStore.notesStore.currentCity?.wind.speed}
+                                    celsius={rootStore.notesStore.celsius}
 
-                            />
-                        </ul>
-                        <ul>
-                            {
-                                rootStore.notesStore.weathers.map((note: any) => (
-                                    <WeatherCard
-                                        removeWeather={rootStore.notesStore.removeCity}
-                                        forcastWeather={rootStore.forcastStore.forcastWeather}
-                                        celsius={rootStore.notesStore.celsius}
-                                        id={note.id}
-                                        name={note.name}
-                                        temp={note.main.temp}
-                                        description={note.weather[0].description}
-                                        humidity={note.main.humidity}
-                                        pressure={note.main.pressure}
-                                        country={note.sys.country}
-                                        deg={note.wind.deg}
-                                        speed={note.wind.speed}
-                                    />
-                                ))
-                            }
-                        </ul>
-                    </MainPageContainer>
-                </Route>
+                                />
+                            </ul>
+                            <ul>
+                                {
+                                    rootStore.notesStore.weathers.map((note: any) => (
+                                        <WeatherCard
+                                            removeWeather={rootStore.notesStore.removeCity}
+                                            forcastWeather={rootStore.forcastStore.forcastWeather}
+                                            celsius={rootStore.notesStore.celsius}
+                                            id={note.id}
+                                            name={note.name}
+                                            temp={note.main.temp}
+                                            description={note.weather[0].description}
+                                            humidity={note.main.humidity}
+                                            pressure={note.main.pressure}
+                                            country={note.sys.country}
+                                            deg={note.wind.deg}
+                                            speed={note.wind.speed}
+                                        />
+                                    ))
+                                }
+                            </ul>
+                        </MainPageContainer>
+                        {/*<NewNoteInput*/}
+                        {/*    changeCelcius={rootStore.notesStore.changeCels}*/}
+                        {/*    addWeather={rootStore.notesStore.searchForWeather}*/}
+                        {/*/>*/}
+                        {/*{callFunc()}*/}
 
 
-                <Route exact path="/weatherCity/:name">
-                    <WeatherCityForcast
-                        changeCelcius={rootStore.notesStore.changeCels}
-                        celsius={rootStore.forcastStore.celsius}
-                        forcastWeather={rootStore.notesStore.forcastWeather}
+                    </Route>
 
-                    />
-                </Route>
+
+                    <Route exact path="/weatherCity/:name">
+                        <WeatherCityForcast
+                            changeCelcius={rootStore.notesStore.changeCels}
+                            celsius={rootStore.forcastStore.celsius}
+                            forcastWeather={rootStore.notesStore.forcastWeather}
+
+                        />
+                    </Route>
+                </Layout>
+
 
             </Switch>
 

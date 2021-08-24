@@ -2,9 +2,9 @@ import React from "react";
 import {ForcastStore, NotesStore} from "../store/NotesStore";
 import {useRootStore} from '../RootStateContext';
 import {observer} from "mobx-react-lite";
-import {Link} from "react-router-dom"
+// import {Link} from "react-router-dom"
 import styled from "styled-components";
-import {Button} from "@material-ui/core";
+// import {Button} from "@material-ui/core";
 
 
 type ForcastWeatherProps = {
@@ -38,9 +38,7 @@ export const WeatherCityForcast: React.FC<ForcastWeatherProps> = observer(({
     return (
         <WeatherForcast>
             <WeatherForcastContainer>
-                <Link to={"/"}>
-                    <h1>Go back Mian Page</h1>
-                </Link>
+
                 {/*<Button onClick={() => changeCelcius()} variant="contained" color="secondary">Change C | F</Button>*/}
 
                 <h1>{rootStore.forcastStore.weathersForcastArr.city?.name}'s Weather Forcast</h1>
