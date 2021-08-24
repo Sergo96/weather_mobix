@@ -32,3 +32,5 @@ export const fetchCurrentCityWeatherData = async (lat: string , lon: string ): P
 }
 
 
+
+// npx browserslist@latest --update-db

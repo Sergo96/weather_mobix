@@ -69,7 +69,7 @@ export const WeatherCard: React.FC<NewNoteInputProps> = ({
                 </CityName>
                 <WeatherField className="">
                     {/*<p>Temperature °K : {temp}</p>*/}
-                    <p>Temperature °K
+                    <p>Temperature
                         : {celsius ? Math.ceil(temp - 273) + "°C" : Math.ceil(((temp - 273.15) * 9 / 5 + 32)) + "°F"}</p>
                 </WeatherField>
 

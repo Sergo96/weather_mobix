@@ -133,7 +133,6 @@ export const NewNoteInput: React.FC<NewNoteInputProps> = ({addWeather, changeCel
                                 type="text"
                                 placeholder="City, State ..."
                                 id="standard-basic"
-                                // label="Search city weather"
                                 classes={{
                                     root: classes.inputRoot,
                                     input: classes.inputInput,
@@ -142,11 +141,7 @@ export const NewNoteInput: React.FC<NewNoteInputProps> = ({addWeather, changeCel
                             />
                         </div>
                         <ButtonSearch onClick={onAddNoteClick}>+ Add city</ButtonSearch>
-
-
-
                         <Button onClick={() => changeCelcius()} variant="contained" color="secondary">Change C | F</Button>
-
                     </Toolbar>
                 </AppBar>
             </div>

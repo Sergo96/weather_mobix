@@ -1,6 +1,7 @@
 import {observable, action, runInAction, makeObservable, autorun} from 'mobx';
-import {fetchWeatherData, fetchForcastWeatherData, fetchCurrentCityWeatherData} from '../utils/weatherApi';
+import {fetchWeatherData, fetchForcastWeatherData} from '../utils/weatherApi';
 import routing from './routing';
+import axios from "axios";
 
 
 export class RootStore {
@@ -23,19 +24,23 @@ export class NotesStore {
     @observable.ref currentCity: any;
     @observable fetchingData: boolean;
     @observable celsius: boolean;
-    @observable geo: any;
+    @observable.ref geo: any;
     @observable isLoading: boolean;
+    @observable error: any;
+    @observable isModalVisible: boolean;
 
 
     constructor(rootStore: any) {
         this.rootStore = rootStore;
 
         this.weathers = [];
-        this.currentCity = [];
+        this.currentCity = {};
         this.fetchingData = false;
         this.geo = {};
         this.celsius = true;
         this.isLoading = false
+        this.error = [];
+        this.isModalVisible = false;
         makeObservable(this);
     }
 
@@ -55,33 +60,33 @@ export class NotesStore {
         this.celsius = !this.celsius
     }
 
-    @action.bound
-    getCurrentCityWeatherData = async () => {
+
+
+    @action getCurrentCityWeatherData = () => {
         this.isLoading = true;
-        try {
-            await navigator.geolocation.getCurrentPosition((position) => {
-                if (position.coords.latitude){
-                    this.geo = {
-                        lat: position.coords.latitude.toString(),
-                        log: position.coords.longitude.toString()
-                    }
-
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                this.geo = {
+                    lat: position.coords.latitude,
+                    log: position.coords.longitude
                 }
-
-                    this.isLoading = false;
-                }
-            );
-        } catch (e) {
-            console.log(e)
-        }
-        console.log(this.geo)
-
-
-        autorun(async () => {
-            const watchID = await fetchCurrentCityWeatherData(this.geo.lat, this.geo.log);
-            console.log(watchID)
-            this.currentCity = watchID
-        })
+                axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${this.geo.lat}&lon=${this.geo.log}&appid=2234d400e71a38976fa7d2fac9bc006d`)
+                    .then(response => {
+                        console.log(response.data);
+                        runInAction(() => {
+                            this.currentCity = response.data;
+                            this.isLoading = false;
+                            this.isModalVisible = true;
+                        });
+                    }).catch(error => {
+                    console.log(error);
+                    this.error = error
+                    this.isLoading = false
+                });
+            },
+            (error) => this.error = error,
+            { enableHighAccuracy: false, timeout: 20000 },
+        );
     }
 
 
@@ -99,11 +104,15 @@ export class ForcastStore {
     @observable rootStore: any
     @observable.ref weathersForcastArr: string[] | number[];
     @observable fetchingData: boolean;
+    @observable celsius: boolean;
+
+
 
     constructor(rootStore: any) {
         this.rootStore = rootStore;
         this.weathersForcastArr = [];
         this.fetchingData = false;
+        this.celsius = true;
         makeObservable(this);
     }
 
@@ -118,8 +127,11 @@ export class ForcastStore {
             this.weathersForcastArr = weatherForcast;
             this.fetchingData = true;
         });
+    }
 
-
+    @action.bound
+    changeForcastCels() {
+        this.celsius = !this.celsius
     }
 }
 

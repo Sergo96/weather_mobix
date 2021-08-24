@@ -1,19 +1,34 @@
 import React from "react";
-import {ForcastStore} from "../store/NotesStore";
+import {ForcastStore, NotesStore} from "../store/NotesStore";
 import {useRootStore} from '../RootStateContext';
 import {observer} from "mobx-react-lite";
 import {Link} from "react-router-dom"
 import styled from "styled-components";
-
-
+import {Button} from "@material-ui/core";
 
 
 type ForcastWeatherProps = {
     forcastWeather: ForcastStore["forcastWeather"],
+    changeCelcius: ForcastStore["changeForcastCels"],
+    celsius: boolean,
+
+}
+
+interface IWeatherForcastType {
+    name?: string;
+    main: object | any;
+    temp?: number;
+    weather: string[] | any;
+    dt_txt: string;
+    description?: string;
 }
 
 
-export const WeatherCityForcast: React.FC<ForcastWeatherProps> = observer(({forcastWeather}) => {
+export const WeatherCityForcast: React.FC<ForcastWeatherProps> = observer(({
+                                                                               forcastWeather,
+                                                                               celsius,
+                                                                               changeCelcius,
+                                                                           }) => {
 
 
     const {rootStore} = useRootStore();
@@ -26,13 +41,17 @@ export const WeatherCityForcast: React.FC<ForcastWeatherProps> = observer(({forc
                 <Link to={"/"}>
                     <h1>Go back Mian Page</h1>
                 </Link>
+                {/*<Button onClick={() => changeCelcius()} variant="contained" color="secondary">Change C | F</Button>*/}
+
                 <h1>{rootStore.forcastStore.weathersForcastArr.city?.name}'s Weather Forcast</h1>
 
                 <WeatherForcastCards>
-                    {rootStore.forcastStore.weathersForcastArr.list?.map((note: any) => {
+                    {rootStore.forcastStore.weathersForcastArr.list?.map((note: IWeatherForcastType ) => {
                         return (
                             <WeatherForcastCard>
-                                <h4>°K: {note.main.temp}</h4>
+                                <h4>Weather: <p>Temperature
+                                    : {celsius ? Math.ceil(note.main.temp - 273) + "°C" : Math.ceil(((note.main.temp - 273.15) * 9 / 5 + 32)) + "°F"}</p>
+                                </h4>
                                 <h5>Date: {note.dt_txt}</h5>
                                 <p>Description: {note.weather[0].description}</p>
                             </WeatherForcastCard>
