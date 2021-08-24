@@ -2,6 +2,7 @@ import {observable, action, runInAction, makeObservable, autorun} from 'mobx';
 import {fetchWeatherData, fetchForcastWeatherData} from '../utils/weatherApi';
 import routing from './routing';
 import axios from "axios";
+import cities from 'cities.json';
 
 
 export class RootStore {
@@ -48,6 +49,11 @@ export class NotesStore {
     @action.bound
     searchForWeather = async (city: string) => {
         this.fetchingData = true;
+
+        for(let i in cities){
+            console.log(cities[i])
+        }
+
         const weather = await fetchWeatherData(city);
         runInAction(() => {
             this.weathers.push(weather);

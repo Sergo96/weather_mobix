@@ -1,6 +1,8 @@
 import React from 'react';
 import {observer} from 'mobx-react-lite';
 import {Route, Switch} from 'react-router-dom';
+import cities from 'cities.json';
+
 
 import styled from 'styled-components';
 import {NewNoteInput} from './Components/NewNoteInput';
@@ -12,6 +14,15 @@ import {Layout} from "./hoc/Layout";
 // import {NotesStore} from "./store/NotesStore";
 
 const App: React.FC = observer(() => {
+
+
+
+
+    // for(let i in cities){
+    //     console.log(cities[i].name)
+    // }
+
+    // console.log(b)
     const {rootStore} = useRootStore();
 
 
