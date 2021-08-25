@@ -9,7 +9,7 @@ interface iLayoutProps {
 }
 
 
-export const Layout: React.FC = observer((props: iLayoutProps) => {
+export const Layout: React.FC<{}> = observer((props: iLayoutProps) => {
     const {rootStore} = useRootStore();
 
     return (

@@ -20,8 +20,6 @@ export class RootStore {
         this.notesStore = new NotesStore(this)
         this.forcastStore = new ForcastStore(this);
     }
-
-
 }
 
 
@@ -52,15 +50,15 @@ export class NotesStore {
 
 
     @action.bound
-    searchForWeather = async (city: string) => {
+    searchForWeather = async (city: string):Promise<void> => {
         this.fetchingData = true;
         const myCities = cities as iCity[]
         const myCity = myCities.find(myCity => myCity.name === city) || false
         if (myCity) {
             const weather = await fetchWeatherData(city);
-            if (this.weathers.some((weatherCityName:any) => weatherCityName.name === city)){
+            if (this.weathers.some((weatherCityName: any) => weatherCityName.name === city)) {
                 alert('this city already added')
-            }else{
+            } else {
                 runInAction(() => {
                     this.weathers.push(weather);
                     this.fetchingData = false;
@@ -77,7 +75,7 @@ export class NotesStore {
     }
 
 
-    @action getCurrentCityWeatherData = () => {
+    @action getCurrentCityWeatherData = (): void => {
         this.isLoading = true;
         navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -106,7 +104,7 @@ export class NotesStore {
 
 
     @action.bound
-    removeCity = (city: string) => {
+    removeCity = (city: string): void => {
         autorun(() => {
             const filteredData = this.weathers.find((cityItem: any) => city === cityItem.name);
             this.weathers.remove(filteredData)
@@ -131,12 +129,10 @@ export class ForcastStore {
     }
 
     @action.bound
-    forcastWeather = async (city: string) => {
+    forcastWeather = async (city: string): Promise<void> => {
         this.fetchingData = false;
         routing.push(`/weatherCity/${city}`)
         const weatherForcast = await fetchForcastWeatherData(city);
-
-
         runInAction(() => {
             this.weathersForcastArr = weatherForcast;
             this.fetchingData = true;

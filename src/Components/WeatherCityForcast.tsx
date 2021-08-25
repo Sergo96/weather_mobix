@@ -41,7 +41,6 @@ export const WeatherCityForcast: React.FC<ForcastWeatherProps> = observer(({
 
 
                 <h1>{rootStore.forcastStore.weathersForcastArr.city?.name}'s Weather Forcast</h1>
-
                 <WeatherForcastCards>
                     {rootStore.forcastStore.weathersForcastArr.list?.map((note: IWeatherForcastType) => {
                         return (

@@ -112,7 +112,6 @@ export const NewNoteInput: React.FC<NewNoteInputProps> = ({addWeather, changeCel
         if (reason === 'clickaway') {
             return;
         }
-
         setOpenCityAlert(false);
     };
 
