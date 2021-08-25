@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import {useRootStore} from './RootStateContext';
 // import {WeatherCard} from "./Components/WeatherCard";
 // import {WeatherCityForcast} from "./Components/WeatherCityForcast";
-import {CurrentCityCard} from "./Components/CurrentCityCard";
+import {CurrentCityCard} from "./Components/CurrentCityCard/CurrentCityCard";
 import {Layout} from "./hoc/Layout";
 import {makeStyles, Theme, createStyles} from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -18,8 +18,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 // import {NotesStore} from "./store/NotesStore";
 
 
-const WeatherCard = React.lazy(() => import("./Components/WeatherCard").then(({WeatherCard}) => ({default: WeatherCard})),);
-const WeatherCityForcast = React.lazy(() => import("./Components/WeatherCityForcast").then(({WeatherCityForcast}) => ({default: WeatherCityForcast})),);
+const WeatherCard = React.lazy(() => import("./Components/WeatherCard/WeatherCard").then(({WeatherCard}) => ({default: WeatherCard})),);
+const WeatherCityForcast = React.lazy(() => import("./pages/WeatherCityForcast").then(({WeatherCityForcast}) => ({default: WeatherCityForcast})),);
 
 
 const useStyles = makeStyles((theme: Theme) =>
