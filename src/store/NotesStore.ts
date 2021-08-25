@@ -61,9 +61,7 @@ export class NotesStore {
             if (this.weathers.some((weatherCityName:any) => weatherCityName.name === city)){
                 alert('this city already added')
             }else{
-
                 runInAction(() => {
-
                     this.weathers.push(weather);
                     this.fetchingData = false;
                 });
