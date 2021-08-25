@@ -1,10 +1,6 @@
 import React from 'react';
 import {ForcastStore, NotesStore} from "../store/NotesStore";
 import {makeStyles, Theme} from '@material-ui/core/styles';
-// import {useHistory} from 'react-router-dom';
-
-
-import CloudIcon from '@material-ui/icons/Cloud';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -13,7 +9,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 type NewNoteInputProps = {
     removeWeather: NotesStore["removeCity"],
     forcastWeather: ForcastStore["forcastWeather"],
-
     id: number | string,
     name: string,
     temp: number,
@@ -23,7 +18,8 @@ type NewNoteInputProps = {
     pressure: string | number,
     country: string,
     deg: string | number,
-    speed: string | number
+    speed: string | number,
+    icon: string
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -45,7 +41,8 @@ export const WeatherCard: React.FC<NewNoteInputProps> = ({
                                                              pressure,
                                                              country,
                                                              deg,
-                                                             speed
+                                                             speed,
+                                                             icon
 
                                                          }) => {
     const classes = useStyles();
@@ -64,11 +61,10 @@ export const WeatherCard: React.FC<NewNoteInputProps> = ({
         <>
             <WeatherFieldContainer>
                 <CityName key={id}>
-                    <CloudIcon/>
+                    <WeatherIcon src={icon ? `http://openweathermap.org/img/wn/${icon}@4x.png` : undefined}/>
                     {name}
                 </CityName>
                 <WeatherField className="">
-                    {/*<p>Temperature °K : {temp}</p>*/}
                     <p>Temperature
                         : {celsius ? Math.ceil(temp - 273) + "°C" : Math.ceil(((temp - 273.15) * 9 / 5 + 32)) + "°F"}</p>
                 </WeatherField>
@@ -147,4 +143,9 @@ const CityName = styled.h2`
   justify-content: space-between;
   color: crimson;
   align-items: center;
+`;
+
+const WeatherIcon = styled.img`
+  width: 70px !important;
+  height: 70px !important
 `;

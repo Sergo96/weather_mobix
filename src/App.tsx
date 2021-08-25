@@ -5,7 +5,7 @@ import cities from 'cities.json';
 
 
 import styled from 'styled-components';
-import {NewNoteInput} from './Components/NewNoteInput';
+// import {NewNoteInput} from './Components/NewNoteInput';
 import {useRootStore} from './RootStateContext';
 import {WeatherCard} from "./Components/WeatherCard";
 import {WeatherCityForcast} from "./Components/WeatherCityForcast";
@@ -15,28 +15,19 @@ import {Layout} from "./hoc/Layout";
 
 const App: React.FC = observer(() => {
 
-
-
-
-    // for(let i in cities){
-    //     console.log(cities[i].name)
-    // }
-
-    // console.log(b)
     const {rootStore} = useRootStore();
 
 
     const callFunc = async () => {
         await rootStore.notesStore.getCurrentCityWeatherData()
     }
-
+    console.log(rootStore)
 
     React.useEffect(() => {
         callFunc()
 
-        // setCurrentCityData(rootStore.notesStore.currentCity)
     }, [])
-    console.log({rootStore}, rootStore.notesStore.currentCity)
+    // console.log({rootStore}, rootStore.notesStore.currentCity)
     return (
         <>
             <Switch>
@@ -52,13 +43,14 @@ const App: React.FC = observer(() => {
                                     name={rootStore.notesStore.currentCity.name}
                                     // name={"Armenia"}
                                     temp={rootStore.notesStore.currentCity?.main?.temp || 0}
-                                    // description={rootStore.notesStore.currentCity?.weather.description}
+                                    // description={rootStore.notesStore.currentCity?.weather[0].description}
                                     // humidity={rootStore.notesStore.currentCity?.main.humidity}
                                     // pressure={rootStore.notesStore.currentCity?.main.pressure}
                                     // country={rootStore.notesStore.currentCity?.sys.country}
                                     // deg={rootStore.notesStore.currentCity?.wind.deg}
                                     // speed={rootStore.notesStore.currentCity?.wind.speed}
                                     celsius={rootStore.notesStore.celsius}
+                                    // icon={rootStore.notesStore.currentCity?.weather[0].icon}
 
                                 />
                             </ul>
@@ -78,16 +70,13 @@ const App: React.FC = observer(() => {
                                             country={note.sys.country}
                                             deg={note.wind.deg}
                                             speed={note.wind.speed}
+                                            icon={note.weather[0].icon}
                                         />
                                     ))
                                 }
                             </ul>
                         </MainPageContainer>
-                        {/*<NewNoteInput*/}
-                        {/*    changeCelcius={rootStore.notesStore.changeCels}*/}
-                        {/*    addWeather={rootStore.notesStore.searchForWeather}*/}
-                        {/*/>*/}
-                        {/*{callFunc()}*/}
+
 
 
                     </Route>

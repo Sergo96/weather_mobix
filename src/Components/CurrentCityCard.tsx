@@ -23,6 +23,7 @@ type CurrentCityProps = {
     // country: string,
     // deg?: string | number,
     // speed?: string | number
+    // icon?: string
 }
 
 // const useStyles = makeStyles((theme: Theme) => ({
@@ -44,6 +45,7 @@ export const CurrentCityCard: React.FC<CurrentCityProps> = ({
                                                                 // country,
                                                                 // deg,
                                                                 // speed
+                                                                // icon,
 
                                                             }) => {
 
@@ -53,7 +55,8 @@ export const CurrentCityCard: React.FC<CurrentCityProps> = ({
         <>
             <CurrentWeatherFieldContainer>
                 <CurrentCityName key={id}>
-                    <CloudIcon/>
+                    {/*<CloudIcon/>*/}
+                    {/*<CurrentWeatherIcon src={icon ? `http://openweathermap.org/img/wn/${icon}@4x.png` : undefined}/>*/}
                     {name}
                 </CurrentCityName>
                 <CurrentWeatherField className="">
@@ -128,4 +131,9 @@ const CurrentCityName = styled.h2`
   justify-content: space-between;
   color: crimson;
   align-items: center;
+`;
+
+const CurrentWeatherIcon = styled.img`
+  width: 70px !important;
+  height: 70px !important
 `;

@@ -4,6 +4,12 @@ import routing from './routing';
 import axios from "axios";
 import cities from 'cities.json';
 
+interface iCity {
+    country: string
+    lat: string
+    lng: string
+    name: string
+}
 
 export class RootStore {
     @observable notesStore: any
@@ -33,7 +39,6 @@ export class NotesStore {
 
     constructor(rootStore: any) {
         this.rootStore = rootStore;
-
         this.weathers = [];
         this.currentCity = {};
         this.fetchingData = false;
@@ -49,23 +54,29 @@ export class NotesStore {
     @action.bound
     searchForWeather = async (city: string) => {
         this.fetchingData = true;
+        const myCities = cities as iCity[]
+        const myCity = myCities.find(myCity => myCity.name === city) || false
+        if (myCity) {
+            const weather = await fetchWeatherData(city);
+            if (this.weathers.some((weatherCityName:any) => weatherCityName.name === city)){
+                alert('this city already added')
+            }else{
 
-        for(let i in cities){
-            console.log(cities[i])
+                runInAction(() => {
+
+                    this.weathers.push(weather);
+                    this.fetchingData = false;
+                });
+            }
+        } else {
+            alert("That city doesn't exist")
         }
-
-        const weather = await fetchWeatherData(city);
-        runInAction(() => {
-            this.weathers.push(weather);
-            this.fetchingData = false;
-        });
     };
 
     @action.bound
     changeCels() {
         this.celsius = !this.celsius
     }
-
 
 
     @action getCurrentCityWeatherData = () => {
@@ -91,7 +102,7 @@ export class NotesStore {
                 });
             },
             (error) => this.error = error,
-            { enableHighAccuracy: false, timeout: 20000 },
+            {enableHighAccuracy: false, timeout: 20000},
         );
     }
 
@@ -111,7 +122,6 @@ export class ForcastStore {
     @observable.ref weathersForcastArr: string[] | number[];
     @observable fetchingData: boolean;
     @observable celsius: boolean;
-
 
 
     constructor(rootStore: any) {

@@ -39,15 +39,17 @@ export const WeatherCityForcast: React.FC<ForcastWeatherProps> = observer(({
         <WeatherForcast>
             <WeatherForcastContainer>
 
-                {/*<Button onClick={() => changeCelcius()} variant="contained" color="secondary">Change C | F</Button>*/}
 
                 <h1>{rootStore.forcastStore.weathersForcastArr.city?.name}'s Weather Forcast</h1>
 
                 <WeatherForcastCards>
-                    {rootStore.forcastStore.weathersForcastArr.list?.map((note: IWeatherForcastType ) => {
+                    {rootStore.forcastStore.weathersForcastArr.list?.map((note: IWeatherForcastType) => {
                         return (
                             <WeatherForcastCard>
-                                <h4>Weather: <p>Temperature
+                                <ForcastWeatherIcon
+                                    src={note.weather[0].icon ? `http://openweathermap.org/img/wn/${note.weather[0].icon}@4x.png` : undefined}
+                                />
+                                <h4><p>Temperature
                                     : {celsius ? Math.ceil(note.main.temp - 273) + "°C" : Math.ceil(((note.main.temp - 273.15) * 9 / 5 + 32)) + "°F"}</p>
                                 </h4>
                                 <h5>Date: {note.dt_txt}</h5>
@@ -55,9 +57,7 @@ export const WeatherCityForcast: React.FC<ForcastWeatherProps> = observer(({
                             </WeatherForcastCard>
                         )
                     })}
-
                 </WeatherForcastCards>
-
             </WeatherForcastContainer>
         </WeatherForcast>
     )
@@ -79,6 +79,7 @@ const WeatherForcastContainer = styled.div`
 const WeatherForcastCards = styled.div`
   display: flex;
   justify-content: center;
+  margin-top: 25px;
   flex-wrap: wrap;
   flex: 0 0 calc(34% - 40px);
 
@@ -88,7 +89,7 @@ const WeatherForcastCard = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   width: 20%;
-  padding: 2px 16px;
+  padding: 12px 26px;
   margin: 2px 10px;
 
 
@@ -96,4 +97,9 @@ const WeatherForcastCard = styled.div`
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 
   }
+`;
+
+const ForcastWeatherIcon = styled.img`
+  width: 70px !important;
+  height: 70px !important
 `;
