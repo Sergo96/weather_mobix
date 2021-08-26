@@ -2,9 +2,15 @@ import React from "react";
 import {ForcastStore} from "../store/NotesStore";
 import {useRootStore} from '../RootStateContext';
 import {observer} from "mobx-react-lite";
-import { ForcastWeatherIcon, WeatherForcast, WeatherForcastCard, WeatherForcastCards, WeatherForcastContainer } from "./styles";
-// import {Link} from "react-router-dom"
-// import {Button} from "@material-ui/core";
+import {
+    ForcastWeatherIcon,
+    WeatherForcast,
+    WeatherForcastCard,
+    WeatherForcastCards,
+    WeatherForcastContainer
+} from "./styles";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+// import { Carousel } from 'react-responsive-carousel';
 
 
 type ForcastWeatherProps = {
@@ -21,6 +27,7 @@ interface IWeatherForcastType {
     weather: string[] | any;
     dt_txt: string;
     description?: string;
+
 }
 
 
@@ -30,19 +37,37 @@ export const WeatherCityForcast: React.FC<ForcastWeatherProps> = observer(({
                                                                                changeCelcius,
                                                                            }) => {
 
-
     const {rootStore} = useRootStore();
-    console.log(rootStore)
+    console.log(rootStore.forcastStore.weathersForcastArr)
+    let daysWeather: string[] | number[] | any[] = [];
+    let daysArr = [];
 
 
+    daysWeather = rootStore.forcastStore.weathersForcastArr.list
+    console.log(daysWeather)
+
+
+
+    for (let i = 0; i < daysWeather?.length; i += 8) {
+        daysArr.push(daysWeather[i])
+        console.log(daysArr)
+    }
+
+    const data = rootStore.forcastStore?.weatherDate ? daysWeather.filter(d => d.dt_txt.includes(rootStore.forcastStore?.weatherDate)) : daysWeather?.slice(0, 5)
+
+    console.log(data)
     return (
         <WeatherForcast>
             <WeatherForcastContainer>
                 <h1>{rootStore.forcastStore.weathersForcastArr.city?.name}'s Weather Forcast</h1>
                 <WeatherForcastCards>
-                    {rootStore.forcastStore.weathersForcastArr.list?.map((note: IWeatherForcastType) => {
+                    {daysArr.map((note: IWeatherForcastType, id: number) => {
                         return (
-                            <WeatherForcastCard>
+                            <WeatherForcastCard onClick={() => {
+                                rootStore.forcastStore.weatherDate = note.dt_txt.slice(0, 10);
+                                rootStore.forcastStore.forecastNumber = id * 8;
+                                console.log(rootStore.forcastStore.weatherDate)
+                            }}>
                                 <ForcastWeatherIcon
                                     src={note.weather[0].icon ? `http://openweathermap.org/img/wn/${note.weather[0].icon}@4x.png` : undefined}
                                 />
@@ -55,6 +80,18 @@ export const WeatherCityForcast: React.FC<ForcastWeatherProps> = observer(({
                         )
                     })}
                 </WeatherForcastCards>
+                <div>{data?.map((i: IWeatherForcastType) => {
+                    return (
+                        <>
+                            <p>{i.dt_txt}</p>
+                            <p>{i.weather[0].description}</p>
+                            <p>{celsius ? Math.ceil(i.main.temp - 273) + "°C" : Math.ceil(((i.main.temp - 273.15) * 9 / 5 + 32)) + "°F"}</p>
+                            <ForcastWeatherIcon
+                                src={i.weather[0].icon ? `http://openweathermap.org/img/wn/${i.weather[0].icon}@4x.png` : undefined}
+                            />
+                        </>
+                    )
+                })}</div>
             </WeatherForcastContainer>
         </WeatherForcast>
     )

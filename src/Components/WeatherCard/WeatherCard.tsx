@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-
 export const WeatherCard: React.FC<NewNoteInputProps> = ({
                                                              removeWeather,
                                                              forcastWeather,
@@ -109,11 +108,6 @@ export const WeatherCard: React.FC<NewNoteInputProps> = ({
                     View Forcast
                 </Button>
             </WeatherFieldContainer>
-
         </>
     )
-
-
 }
-
-

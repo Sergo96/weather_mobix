@@ -34,10 +34,8 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const App: React.FC = observer(() => {
-
     const {rootStore} = useRootStore();
     const classes = useStyles();
-
 
     interface IWeatherCardType {
         removeWeather: (city: string) => void;
@@ -68,7 +66,6 @@ const App: React.FC = observer(() => {
 
     }
 
-
     const callFunc = async () => {
         await rootStore.notesStore.getCurrentCityWeatherData()
     }
@@ -82,8 +79,6 @@ const App: React.FC = observer(() => {
     return (
         <>
             <Suspense fallback={<div className={classes.root}><CircularProgress/></div>}>
-
-
                 <Switch>
                     <Layout>
 
@@ -105,7 +100,6 @@ const App: React.FC = observer(() => {
                                         // speed={rootStore.notesStore.currentCity?.wind.speed}
                                         celsius={rootStore.notesStore.celsius}
                                         // icon={rootStore.notesStore.currentCity?.weather[0].icon}
-
                                     />
                                 </ul>
                                 <ul>
@@ -129,18 +123,13 @@ const App: React.FC = observer(() => {
                                                             speed={note.wind.speed}
                                                             icon={note.weather[0].icon}
                                                         />
-
                                                     </Suspense>
-
                                                 )
                                             }
                                         )
-
                                     }
                                 </ul>
                             </MainPageContainer>
-
-
                         </Route>
                         <Route exact path="/weatherCity/:name" render={() => {
                             return (
@@ -152,15 +141,9 @@ const App: React.FC = observer(() => {
                             )
                         }}>
                         </Route>
-
-
                     </Layout>
-
-
                 </Switch>
             </Suspense>
-
-
         </>
     )
 })

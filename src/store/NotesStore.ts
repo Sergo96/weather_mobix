@@ -29,7 +29,7 @@ export class NotesStore {
     @observable.ref currentCity: any;
     @observable fetchingData: boolean;
     @observable celsius: boolean;
-    @observable.ref geo: { lat?: number | string, log?: number | string  }  ;
+    @observable.ref geo: { lat?: number | string, log?: number | string };
     @observable isLoading: boolean;
     @observable error: any;
     @observable isModalVisible: boolean;
@@ -85,19 +85,19 @@ export class NotesStore {
                 }
                 console.log(this.geo)
                 if (this.geo.lat && this.geo.log)
-                axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${this.geo?.lat}&lon=${this.geo?.log}&appid=2234d400e71a38976fa7d2fac9bc006d`)
-                    .then(response => {
-                        console.log(response.data);
-                        runInAction(() => {
-                            this.currentCity = response.data;
-                            this.isLoading = false;
-                            this.isModalVisible = true;
-                        });
-                    }).catch(error => {
-                    console.log(error);
-                    this.error = error
-                    this.isLoading = false
-                });
+                    axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${this.geo?.lat}&lon=${this.geo?.log}&appid=2234d400e71a38976fa7d2fac9bc006d`)
+                        .then(response => {
+                            console.log(response.data);
+                            runInAction(() => {
+                                this.currentCity = response.data;
+                                this.isLoading = false;
+                                this.isModalVisible = true;
+                            });
+                        }).catch(error => {
+                        console.log(error);
+                        this.error = error
+                        this.isLoading = false
+                    });
             },
             (error) => this.error = error,
             {enableHighAccuracy: false, timeout: 20000},
@@ -120,6 +120,8 @@ export class ForcastStore {
     @observable.ref weathersForcastArr: string[] | number[] | {} | any;
     @observable fetchingData: boolean;
     @observable celsius: boolean;
+    @observable.ref weatherDate: string = '';
+    @observable.ref forecastNumber: number = 0;
 
 
     constructor(rootStore: any) {
@@ -127,6 +129,8 @@ export class ForcastStore {
         this.weathersForcastArr = [];
         this.fetchingData = false;
         this.celsius = true;
+        this.weatherDate = '';
+        this.forecastNumber = 0;
         makeObservable(this);
     }
 
