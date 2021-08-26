@@ -7,7 +7,9 @@ import {
     WeatherForcast,
     WeatherForcastCard,
     WeatherForcastCards,
-    WeatherForcastContainer
+    WeatherForcastContainer,
+    WeatherHourlyCard,
+    WeatherHourlyCards
 } from "./styles";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 // import { Carousel } from 'react-responsive-carousel';
@@ -58,40 +60,44 @@ export const WeatherCityForcast: React.FC<ForcastWeatherProps> = observer(({
     console.log(data)
     return (
         <WeatherForcast>
+            <h1>{rootStore.forcastStore.weathersForcastArr.city?.name}'s Weather Forcast</h1>
             <WeatherForcastContainer>
-                <h1>{rootStore.forcastStore.weathersForcastArr.city?.name}'s Weather Forcast</h1>
-                <WeatherForcastCards>
-                    {daysArr.map((note: IWeatherForcastType, id: number) => {
+                    <WeatherForcastCards>
+                        {daysArr.map((note: IWeatherForcastType, id: number) => {
+                            return (
+                                <WeatherForcastCard onClick={() => {
+                                    rootStore.forcastStore.weatherDate = note.dt_txt.slice(0, 10);
+                                    rootStore.forcastStore.forecastNumber = id * 8;
+                                    console.log(rootStore.forcastStore.weatherDate)
+                                }}>
+                                    <ForcastWeatherIcon
+                                        src={note.weather[0].icon ? `http://openweathermap.org/img/wn/${note.weather[0].icon}@4x.png` : undefined}
+                                    />
+                                    <h4><p>Temperature
+                                        : {celsius ? Math.ceil(note.main.temp - 273) + "°C" : Math.ceil(((note.main.temp - 273.15) * 9 / 5 + 32)) + "°F"}</p>
+                                    </h4>
+                                    <h5>Date: {note.dt_txt}</h5>
+                                    <p>Description: {note.weather[0].description}</p>
+                                </WeatherForcastCard>
+                            )
+                        })}
+                    </WeatherForcastCards>
+                <WeatherHourlyCards>
+                    {data?.map((i: IWeatherForcastType) => {
                         return (
-                            <WeatherForcastCard onClick={() => {
-                                rootStore.forcastStore.weatherDate = note.dt_txt.slice(0, 10);
-                                rootStore.forcastStore.forecastNumber = id * 8;
-                                console.log(rootStore.forcastStore.weatherDate)
-                            }}>
+                            <WeatherHourlyCard>
+                                <p>{i.dt_txt}</p>
+                                <p>{i.weather[0].description}</p>
+                                <p>{celsius ? Math.ceil(i.main.temp - 273) + "°C" : Math.ceil(((i.main.temp - 273.15) * 9 / 5 + 32)) + "°F"}</p>
                                 <ForcastWeatherIcon
-                                    src={note.weather[0].icon ? `http://openweathermap.org/img/wn/${note.weather[0].icon}@4x.png` : undefined}
+                                    src={i.weather[0].icon ? `http://openweathermap.org/img/wn/${i.weather[0].icon}@4x.png` : undefined}
                                 />
-                                <h4><p>Temperature
-                                    : {celsius ? Math.ceil(note.main.temp - 273) + "°C" : Math.ceil(((note.main.temp - 273.15) * 9 / 5 + 32)) + "°F"}</p>
-                                </h4>
-                                <h5>Date: {note.dt_txt}</h5>
-                                <p>Description: {note.weather[0].description}</p>
-                            </WeatherForcastCard>
+                            </WeatherHourlyCard>
                         )
                     })}
-                </WeatherForcastCards>
-                <div>{data?.map((i: IWeatherForcastType) => {
-                    return (
-                        <>
-                            <p>{i.dt_txt}</p>
-                            <p>{i.weather[0].description}</p>
-                            <p>{celsius ? Math.ceil(i.main.temp - 273) + "°C" : Math.ceil(((i.main.temp - 273.15) * 9 / 5 + 32)) + "°F"}</p>
-                            <ForcastWeatherIcon
-                                src={i.weather[0].icon ? `http://openweathermap.org/img/wn/${i.weather[0].icon}@4x.png` : undefined}
-                            />
-                        </>
-                    )
-                })}</div>
+
+                </WeatherHourlyCards>
+
             </WeatherForcastContainer>
         </WeatherForcast>
     )

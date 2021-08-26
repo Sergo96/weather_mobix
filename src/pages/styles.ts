@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 
-
 export const WeatherForcast = styled.div`
   max-width: 1300px;
   width: 100%;
@@ -12,6 +11,8 @@ export const WeatherForcast = styled.div`
 export const WeatherForcastContainer = styled.div`
   width: 90%;
   margin: auto 0;
+  display: flex;
+  justify-content: space-between;
 `;
 
 
@@ -27,9 +28,11 @@ export const WeatherForcastCards = styled.div`
 export const WeatherForcastCard = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  width: 20%;
+  width: 45%;
+  height: 30%;
   padding: 12px 26px;
   margin: 2px 10px;
+  cursor: pointer;
 
 
   &:hover {
@@ -41,4 +44,17 @@ export const WeatherForcastCard = styled.div`
 export const ForcastWeatherIcon = styled.img`
   width: 70px !important;
   height: 70px !important
+`;
+
+export const WeatherHourlyCard = styled.div`
+  width: 45%;
+  height: 30%;
+  padding: 12px 26px;
+  margin: 2px 10px;
+  cursor: pointer;
+`;
+
+export const WeatherHourlyCards = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
