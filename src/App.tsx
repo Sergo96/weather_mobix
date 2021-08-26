@@ -1,21 +1,17 @@
 import React, {Suspense} from 'react';
 import {observer} from 'mobx-react-lite';
-import {Route, Switch} from 'react-router-dom';
-// import cities from 'cities.json';
 
+import {Route, Switch} from 'react-router-dom';
 
 import styled from 'styled-components';
-// import {NewNoteInput} from './Components/NewNoteInput';
+
 import {useRootStore} from './RootStateContext';
-// import {WeatherCard} from "./Components/WeatherCard";
-// import {WeatherCityForcast} from "./Components/WeatherCityForcast";
+
 import {CurrentCityCard} from "./Components/CurrentCityCard/CurrentCityCard";
 import {Layout} from "./hoc/Layout";
+
 import {makeStyles, Theme, createStyles} from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-
-// import {NotesStore} from "./store/NotesStore";
 
 
 const WeatherCard = React.lazy(() => import("./Components/WeatherCard/WeatherCard").then(({WeatherCard}) => ({default: WeatherCard})),);
@@ -157,6 +153,5 @@ const MainPageContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-
 `;
 

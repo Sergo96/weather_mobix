@@ -11,7 +11,7 @@ import {
     WeatherHourlyCard,
     WeatherHourlyCards
 } from "./styles";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+// import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 // import { Carousel } from 'react-responsive-carousel';
 
 
@@ -95,9 +95,7 @@ export const WeatherCityForcast: React.FC<ForcastWeatherProps> = observer(({
                             </WeatherHourlyCard>
                         )
                     })}
-
                 </WeatherHourlyCards>
-
             </WeatherForcastContainer>
         </WeatherForcast>
     )

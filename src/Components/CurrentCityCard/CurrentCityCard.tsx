@@ -1,12 +1,9 @@
 import React from 'react';
-// import {ForcastStore, NotesStore} from "../store/NotesStore";
-// import {makeStyles, Theme} from '@material-ui/core/styles';
-// import {useHistory} from 'react-router-dom';
+
 
 
 import { CurrentCityName, CurrentWeatherField, CurrentWeatherFieldContainer } from './styles';
-// import Button from '@material-ui/core/Button';
-// import DeleteIcon from '@material-ui/icons/Delete';
+
 
 type CurrentCityProps = {
     // removeWeather: NotesStore["removeCity"],
@@ -96,11 +93,6 @@ export const CurrentCityCard: React.FC<CurrentCityProps> = ({
                 {/*    View Forcast*/}
                 {/*</Button>*/}
             </CurrentWeatherFieldContainer>
-
         </>
     )
-
-
 }
-
-
