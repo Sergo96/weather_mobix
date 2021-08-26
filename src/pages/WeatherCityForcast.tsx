@@ -1,5 +1,5 @@
 import React from "react";
-import {ForcastStore, NotesStore} from "../store/NotesStore";
+import {ForcastStore} from "../store/NotesStore";
 import {useRootStore} from '../RootStateContext';
 import {observer} from "mobx-react-lite";
 import { ForcastWeatherIcon, WeatherForcast, WeatherForcastCard, WeatherForcastCards, WeatherForcastContainer } from "./styles";
@@ -38,8 +38,6 @@ export const WeatherCityForcast: React.FC<ForcastWeatherProps> = observer(({
     return (
         <WeatherForcast>
             <WeatherForcastContainer>
-
-
                 <h1>{rootStore.forcastStore.weathersForcastArr.city?.name}'s Weather Forcast</h1>
                 <WeatherForcastCards>
                     {rootStore.forcastStore.weathersForcastArr.list?.map((note: IWeatherForcastType) => {

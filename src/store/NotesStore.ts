@@ -12,8 +12,8 @@ interface iCity {
 }
 
 export class RootStore {
-    @observable notesStore: any
-    @observable forcastStore: any
+    @observable notesStore: any;
+    @observable forcastStore;
 
 
     constructor() {
@@ -29,13 +29,13 @@ export class NotesStore {
     @observable.ref currentCity: any;
     @observable fetchingData: boolean;
     @observable celsius: boolean;
-    @observable.ref geo: any;
+    @observable.ref geo: { lat?: number | string, log?: number | string  }  ;
     @observable isLoading: boolean;
     @observable error: any;
     @observable isModalVisible: boolean;
 
 
-    constructor(rootStore: any) {
+    constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
         this.weathers = [];
         this.currentCity = {};
@@ -50,7 +50,7 @@ export class NotesStore {
 
 
     @action.bound
-    searchForWeather = async (city: string):Promise<void> => {
+    searchForWeather = async (city: string): Promise<void> => {
         this.fetchingData = true;
         const myCities = cities as iCity[]
         const myCity = myCities.find(myCity => myCity.name === city) || false
@@ -83,7 +83,9 @@ export class NotesStore {
                     lat: position.coords.latitude,
                     log: position.coords.longitude
                 }
-                axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${this.geo.lat}&lon=${this.geo.log}&appid=2234d400e71a38976fa7d2fac9bc006d`)
+                console.log(this.geo)
+                if (this.geo.lat && this.geo.log)
+                axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${this.geo?.lat}&lon=${this.geo?.log}&appid=2234d400e71a38976fa7d2fac9bc006d`)
                     .then(response => {
                         console.log(response.data);
                         runInAction(() => {
@@ -115,7 +117,7 @@ export class NotesStore {
 
 export class ForcastStore {
     @observable rootStore: any
-    @observable.ref weathersForcastArr: string[] | number[];
+    @observable.ref weathersForcastArr: string[] | number[] | {} | any;
     @observable fetchingData: boolean;
     @observable celsius: boolean;
 
