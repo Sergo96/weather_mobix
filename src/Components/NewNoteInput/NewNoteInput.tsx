@@ -1,16 +1,11 @@
 import React from 'react';
 import {NotesStore} from '../../store/NotesStore';
+
 import {alpha, makeStyles, Theme} from '@material-ui/core/styles';
 import MuiAlert, {AlertProps} from '@material-ui/lab/Alert';
-import Snackbar from '@material-ui/core/Snackbar';
-import {AppBar, Button} from "@material-ui/core";
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-// import MenuIcon from '@material-ui/icons/Menu';
-import CloudIcon from '@material-ui/icons/Cloud';
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
+import {Typography, IconButton, Toolbar, AppBar, Button, Snackbar, InputBase} from '@material-ui/core';
+
+import {Cloud, Search} from '@material-ui/icons';
 import { useHistory } from 'react-router-dom';
 import { Style } from './styles';
 
@@ -126,14 +121,14 @@ export const NewNoteInput: React.FC<NewNoteInputProps> = ({addWeather, changeCel
                 <AppBar position="static">
                     <Toolbar>
                         <IconButton onClick={handleHomeClick} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                            <CloudIcon/>
+                            <Cloud/>
                         </IconButton>
                         <Typography variant="h6" className={classes.title}>
                             Weather APP
                         </Typography>
                         <div className={classes.search}>
                             <div className={classes.searchIcon}>
-                                <SearchIcon/>
+                                <Search/>
                             </div>
                             <InputBase
                                 value={note}
@@ -159,9 +154,7 @@ export const NewNoteInput: React.FC<NewNoteInputProps> = ({addWeather, changeCel
                     City added successfully!
                 </Alert>
             </Snackbar>
-
         </>
-
     )
 }
 
