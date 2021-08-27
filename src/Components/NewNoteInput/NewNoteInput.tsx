@@ -6,9 +6,8 @@ import MuiAlert, {AlertProps} from '@material-ui/lab/Alert';
 import {Typography, IconButton, Toolbar, AppBar, Button, Snackbar, InputBase} from '@material-ui/core';
 
 import {Cloud, Search} from '@material-ui/icons';
-import { useHistory } from 'react-router-dom';
-import { Style } from './styles';
-
+import {useHistory} from 'react-router-dom';
+import {Style} from './styles';
 
 
 type NewNoteInputProps = {
@@ -120,7 +119,8 @@ export const NewNoteInput: React.FC<NewNoteInputProps> = ({addWeather, changeCel
             <div className={classes.root}>
                 <AppBar position="static">
                     <Toolbar>
-                        <IconButton onClick={handleHomeClick} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                        <IconButton onClick={handleHomeClick} edge="start" className={classes.menuButton}
+                                    color="inherit" aria-label="menu">
                             <Cloud/>
                         </IconButton>
                         <Typography variant="h6" className={classes.title}>
@@ -144,7 +144,8 @@ export const NewNoteInput: React.FC<NewNoteInputProps> = ({addWeather, changeCel
                             />
                         </div>
                         <Style.ButtonSearch onClick={onAddNoteClick}>+ Add city</Style.ButtonSearch>
-                        <Button onClick={() => changeCelcius()} variant="contained" color="secondary">Change C | F</Button>
+                        <Button onClick={() => changeCelcius()} variant="contained" color="secondary">Change C |
+                            F</Button>
                     </Toolbar>
                 </AppBar>
             </div>

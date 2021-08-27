@@ -11,10 +11,10 @@ interface iLayoutProps {
 
 export const Layout: React.FC<{}> = observer((props: iLayoutProps) => {
     const {rootStore} = useRootStore();
-
     return (
         <>
-            <NewNoteInput addWeather={rootStore.notesStore.searchForWeather} changeCelcius={rootStore.notesStore.changeCels}/>
+            <NewNoteInput addWeather={rootStore.notesStore.searchForWeather}
+                          changeCelcius={rootStore.notesStore.changeCels}/>
             {props.children}
         </>
     )

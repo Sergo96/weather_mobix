@@ -5,8 +5,6 @@ import {observer} from "mobx-react-lite";
 import {
     Style
 } from "./styles";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-// import { Carousel } from 'react-responsive-carousel';
 
 
 type ForcastWeatherProps = {
@@ -40,8 +38,7 @@ export const WeatherCityForcast: React.FC<ForcastWeatherProps> = observer(({
 
 
     daysWeather = rootStore.forcastStore.weathersForcastArr.list
-    console.log(daysWeather)
-
+    // console.log(daysWeather)
 
 
     for (let i = 0; i < daysWeather?.length; i += 8) {
@@ -54,7 +51,8 @@ export const WeatherCityForcast: React.FC<ForcastWeatherProps> = observer(({
     console.log(data)
     return (
         <Style.WeatherForcast>
-            <Style.WeatherSectionTitle>{rootStore.forcastStore.weathersForcastArr.city?.name}'s Weather Forecast</Style.WeatherSectionTitle>
+            <Style.WeatherSectionTitle>{rootStore.forcastStore.weathersForcastArr.city?.name}'s Weather
+                Forecast</Style.WeatherSectionTitle>
             <Style.WeatherForcastContainer>
                 <Style.WeatherSectionsTitle>Weather hourly Forecast </Style.WeatherSectionsTitle>
                 <Style.WeatherHourlyCards>
@@ -72,29 +70,29 @@ export const WeatherCityForcast: React.FC<ForcastWeatherProps> = observer(({
                     })}
 
                 </Style.WeatherHourlyCards>
-                <Style.WeatherSectionsTitle>Weather daily Forecast (Click to see hourly forecast) </Style.WeatherSectionsTitle>
+                <Style.WeatherSectionsTitle>Weather daily Forecast (Click to see hourly
+                    forecast) </Style.WeatherSectionsTitle>
 
                 <Style.WeatherForcastCards>
-                        {daysArr.map((note: IWeatherForcastType, id: number) => {
-                            return (
-                                <Style.WeatherForcastCard onClick={() => {
-                                    rootStore.forcastStore.weatherDate = note.dt_txt.slice(0, 10);
-                                    rootStore.forcastStore.forecastNumber = id * 8;
-                                    console.log(rootStore.forcastStore.weatherDate)
-                                }}>
-                                    <Style.ForcastWeatherIcon
-                                        src={note.weather[0].icon ? `http://openweathermap.org/img/wn/${note.weather[0].icon}@4x.png` : undefined}
-                                    />
-                                    <h4><p>Temperature
-                                        : {celsius ? Math.ceil(note.main.temp - 273) + "°C" : Math.ceil(((note.main.temp - 273.15) * 9 / 5 + 32)) + "°F"}</p>
-                                    </h4>
-                                    <h5>Date: {note.dt_txt}</h5>
-                                    <p>Description: {note.weather[0].description}</p>
-                                </Style.WeatherForcastCard>
-                            )
-                        })}
-                    </Style.WeatherForcastCards>
-
+                    {daysArr.map((note: IWeatherForcastType, id: number) => {
+                        return (
+                            <Style.WeatherForcastCard onClick={() => {
+                                rootStore.forcastStore.weatherDate = note.dt_txt.slice(0, 10);
+                                rootStore.forcastStore.forecastNumber = id * 8;
+                                console.log(rootStore.forcastStore.weatherDate)
+                            }}>
+                                <Style.ForcastWeatherIcon
+                                    src={note.weather[0].icon ? `http://openweathermap.org/img/wn/${note.weather[0].icon}@4x.png` : undefined}
+                                />
+                                <h4><p>Temperature
+                                    : {celsius ? Math.ceil(note.main.temp - 273) + "°C" : Math.ceil(((note.main.temp - 273.15) * 9 / 5 + 32)) + "°F"}</p>
+                                </h4>
+                                <h5>Date: {note.dt_txt}</h5>
+                                <p>Description: {note.weather[0].description}</p>
+                            </Style.WeatherForcastCard>
+                        )
+                    })}
+                </Style.WeatherForcastCards>
             </Style.WeatherForcastContainer>
         </Style.WeatherForcast>
     )

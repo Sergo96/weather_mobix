@@ -69,7 +69,7 @@ const App: React.FC = observer(() => {
 
     React.useEffect(() => {
         callFunc()
-
+        // eslint-disable-next-line
     }, [])
     console.log({rootStore})
     return (
@@ -77,7 +77,6 @@ const App: React.FC = observer(() => {
             <Suspense fallback={<div className={classes.root}><CircularProgress/></div>}>
                 <Switch>
                     <Layout>
-
                         <Route exact path={'/'}>
                             <MainPageContainer>
                                 <hr/>
@@ -86,16 +85,8 @@ const App: React.FC = observer(() => {
                                     <CurrentCityCard
                                         id={rootStore.notesStore.currentCity.id}
                                         name={rootStore.notesStore.currentCity.name}
-                                        // name={"Armenia"}
                                         temp={rootStore.notesStore.currentCity?.main?.temp || 0}
-                                        // description={rootStore.notesStore.currentCity?.weather[0].description}
-                                        // humidity={rootStore.notesStore.currentCity?.main.humidity}
-                                        // pressure={rootStore.notesStore.currentCity?.main.pressure}
-                                        // country={rootStore.notesStore.currentCity?.sys.country}
-                                        // deg={rootStore.notesStore.currentCity?.wind.deg}
-                                        // speed={rootStore.notesStore.currentCity?.wind.speed}
                                         celsius={rootStore.notesStore.celsius}
-                                        // icon={rootStore.notesStore.currentCity?.weather[0].icon}
                                     />
                                 </ul>
                                 <ul>
