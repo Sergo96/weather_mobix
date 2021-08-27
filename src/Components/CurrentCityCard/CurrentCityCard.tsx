@@ -4,7 +4,7 @@ import React from 'react';
 // import {useHistory} from 'react-router-dom';
 
 
-import { CurrentCityName, CurrentWeatherField, CurrentWeatherFieldContainer } from './styles';
+import { Style } from './styles';
 // import Button from '@material-ui/core/Button';
 // import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -52,17 +52,17 @@ export const CurrentCityCard: React.FC<CurrentCityProps> = ({
 
     return (
         <>
-            <CurrentWeatherFieldContainer>
-                <CurrentCityName key={id}>
+            <Style.CurrentWeatherFieldContainer>
+                <Style.CurrentCityName key={id}>
                     {/*<CloudIcon/>*/}
                     {/*<CurrentWeatherIcon src={icon ? `http://openweathermap.org/img/wn/${icon}@4x.png` : undefined}/>*/}
                     {name}
-                </CurrentCityName>
-                <CurrentWeatherField className="">
+                </Style.CurrentCityName>
+                <Style.CurrentWeatherField className="">
                     {/*<p>Temperature °K : {temp}</p>*/}
                     <p>Temperature
                         : {celsius ? Math.ceil(temp - 273) + "°C" : Math.ceil(((temp - 273.15) * 9 / 5 + 32)) + "°F"}</p>
-                </CurrentWeatherField>
+                </Style.CurrentWeatherField>
 
                 {/*<CurrentWeatherField>*/}
                 {/*    <p>Clouds : {description}</p>*/}
@@ -95,12 +95,9 @@ export const CurrentCityCard: React.FC<CurrentCityProps> = ({
                 {/*>*/}
                 {/*    View Forcast*/}
                 {/*</Button>*/}
-            </CurrentWeatherFieldContainer>
-
+            </Style.CurrentWeatherFieldContainer>
         </>
     )
-
-
 }
 
 
