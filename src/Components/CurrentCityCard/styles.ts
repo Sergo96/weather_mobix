@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 
-export const CurrentWeatherFieldContainer = styled.div`
+const CurrentWeatherFieldContainer = styled.div`
   margin-top: 20px;
   padding: 35px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -15,21 +15,29 @@ export const CurrentWeatherFieldContainer = styled.div`
   }
 `;
 
-export const CurrentWeatherField = styled.div`
+const CurrentWeatherField = styled.div`
   display: flex;
   /* justify-content: space-between; */
   align-items: center;
   margin: 5px;
 `;
 
-export const CurrentCityName = styled.h2`
+const CurrentCityName = styled.h2`
   display: flex;
   justify-content: space-between;
   color: crimson;
   align-items: center;
 `;
 
-export const CurrentWeatherIcon = styled.img`
+const CurrentWeatherIcon = styled.img`
   width: 70px !important;
   height: 70px !important
 `;
+
+
+export const Style = {
+    CurrentWeatherFieldContainer,
+    CurrentWeatherField,
+    CurrentCityName,
+    CurrentWeatherIcon
+}

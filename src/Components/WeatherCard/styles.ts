@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 
-export const WeatherFieldContainer = styled.div`
+const WeatherFieldContainer = styled.div`
   margin-top: 20px;
   padding: 35px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -15,21 +15,29 @@ export const WeatherFieldContainer = styled.div`
   }
 `;
 
-export const WeatherField = styled.div`
+const WeatherField = styled.div`
   display: flex;
   /* justify-content: space-between; */
   align-items: center;
   margin: 5px;
 `;
 
-export const CityName = styled.h2`
+const CityName = styled.h2`
   display: flex;
   justify-content: space-between;
   color: crimson;
   align-items: center;
 `;
 
-export const WeatherIcon = styled.img`
+const WeatherIcon = styled.img`
   width: 70px !important;
   height: 70px !important
 `;
+
+
+export const Style = {
+    WeatherFieldContainer,
+    WeatherField,
+    CityName,
+    WeatherIcon
+}

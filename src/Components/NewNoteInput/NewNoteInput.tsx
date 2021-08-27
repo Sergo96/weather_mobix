@@ -12,7 +12,7 @@ import CloudIcon from '@material-ui/icons/Cloud';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import { useHistory } from 'react-router-dom';
-import { ButtonSearch } from './styles';
+import { Style } from './styles';
 
 
 
@@ -148,7 +148,7 @@ export const NewNoteInput: React.FC<NewNoteInputProps> = ({addWeather, changeCel
                                 inputProps={{'aria-label': 'search'}}
                             />
                         </div>
-                        <ButtonSearch onClick={onAddNoteClick}>+ Add city</ButtonSearch>
+                        <Style.ButtonSearch onClick={onAddNoteClick}>+ Add city</Style.ButtonSearch>
                         <Button onClick={() => changeCelcius()} variant="contained" color="secondary">Change C | F</Button>
                     </Toolbar>
                 </AppBar>

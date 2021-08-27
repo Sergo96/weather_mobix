@@ -3,7 +3,7 @@ import {ForcastStore, NotesStore} from "../../store/NotesStore";
 import {makeStyles, Theme} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { CityName, WeatherField, WeatherFieldContainer, WeatherIcon } from './styles';
+import { Style } from './styles';
 
 
 type NewNoteInputProps = {
@@ -58,39 +58,39 @@ export const WeatherCard: React.FC<NewNoteInputProps> = ({
     }
     return (
         <>
-            <WeatherFieldContainer>
-                <CityName key={id}>
-                    <WeatherIcon src={icon ? `http://openweathermap.org/img/wn/${icon}@4x.png` : undefined}/>
+            <Style.WeatherFieldContainer>
+                <Style.CityName key={id}>
+                    <Style.WeatherIcon src={icon ? `http://openweathermap.org/img/wn/${icon}@4x.png` : undefined}/>
                     {name}
-                </CityName>
-                <WeatherField className="">
+                </Style.CityName>
+                <Style.WeatherField className="">
                     <p>Temperature
                         : {celsius ? Math.ceil(temp - 273) + "°C" : Math.ceil(((temp - 273.15) * 9 / 5 + 32)) + "°F"}</p>
-                </WeatherField>
+                </Style.WeatherField>
 
-                <WeatherField>
+                <Style.WeatherField>
                     <p>Clouds : {description}</p>
-                </WeatherField>
+                </Style.WeatherField>
 
-                <WeatherField className="">
+                <Style.WeatherField >
                     <p>Humidity : {humidity}</p>
-                </WeatherField>
+                </Style.WeatherField>
 
-                <WeatherField className="">
+                <Style.WeatherField>
                     <p>Pressure : {pressure}</p>
-                </WeatherField>
+                </Style.WeatherField>
 
-                <WeatherField className="">
+                <Style.WeatherField>
                     <p>Country : "{country}"</p>
-                </WeatherField>
+                </Style.WeatherField>
 
-                <WeatherField className="">
+                <Style.WeatherField>
                     <p>Wind deg : {deg}</p>
-                </WeatherField>
+                </Style.WeatherField>
 
-                <WeatherField className="">
+                <Style.WeatherField>
                     <p>Wind speed : {speed}</p>
-                </WeatherField>
+                </Style.WeatherField>
 
                 <Button
                     variant="contained"
@@ -107,7 +107,7 @@ export const WeatherCard: React.FC<NewNoteInputProps> = ({
                 >
                     View Forcast
                 </Button>
-            </WeatherFieldContainer>
+            </Style.WeatherFieldContainer>
         </>
     )
 }

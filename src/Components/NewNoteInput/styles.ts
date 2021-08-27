@@ -24,7 +24,7 @@ const theme: any = {
 };
 
 
-export const ButtonSearch = styled.button`
+const ButtonSearch = styled.button`
   background-color: ${(props) => theme[props.theme].default};
   color: white;
   padding: 5px 15px;
@@ -50,3 +50,7 @@ export const ButtonSearch = styled.button`
 ButtonSearch.defaultProps = {
     theme: "orange"
 };
+
+export const Style = {
+    ButtonSearch
+}
